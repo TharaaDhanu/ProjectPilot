@@ -1,0 +1,381 @@
+/* ==========================================================================
+   RightSidebar.module.css — Right Utility Sidebar
+   ProjectPilot Phase 2 Dashboard
+   ========================================================================== */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: #ffffff;
+  border-left: 1px solid rgba(30, 27, 53, 0.07);
+  display: flex;
+  flex-direction: column;
+  z-index: 80;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(30,27,53,0.1);
+  border-radius: 4px;
+}
+
+/* ── Sections ── */
+.section {
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid rgba(30, 27, 53, 0.06);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.sectionTitle {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+/* ── Mini Calendar ── */
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.calendarMonth {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1E1B35;
+}
+
+.calendarNav {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.calendarNav:hover {
+  background: #f3f4f6;
+  color: #1E1B35;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+
+.calendarDayName {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #9ca3af;
+  padding: 4px 0;
+  text-transform: uppercase;
+}
+
+.calendarDay {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #374151;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+}
+
+.calendarDay:hover {
+  background: rgba(217, 255, 79, 0.2);
+}
+
+.calendarDay.today {
+  background: #D9FF4F;
+  color: #1E1B35;
+  font-weight: 700;
+}
+
+.calendarDay.otherMonth {
+  color: #d1d5db;
+}
+
+/* ── Activity Timeline ── */
+.timelineItem {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.timelineItem:last-child {
+  margin-bottom: 0;
+}
+
+.timelineAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: #1E1B35;
+}
+
+.timelineContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.timelineText {
+  font-size: 0.75rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.timelineText strong {
+  color: #1E1B35;
+  font-weight: 600;
+}
+
+.timelineTime {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ── Upcoming Tasks ── */
+.taskItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: #f9fafb;
+  transition: background 0.15s;
+}
+
+.taskItem:last-child {
+  margin-bottom: 0;
+}
+
+.taskItem:hover {
+  background: #f3f4f6;
+}
+
+.taskPriorityDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.taskTitle {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #1E1B35;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.taskDue {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ── Upcoming Meetings ── */
+.meetingItem {
+  display: flex;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  background: #f9fafb;
+  transition: background 0.15s;
+}
+
+.meetingItem:hover {
+  background: #f3f4f6;
+}
+
+.meetingIcon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6366f1;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.meetingInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.meetingTitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1E1B35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meetingTime {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  margin-top: 1px;
+}
+
+.meetingPlatform {
+  font-size: 0.6rem;
+  background: rgba(217, 255, 79, 0.25);
+  color: #4a5200;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-weight: 600;
+  width: fit-content;
+  margin-top: 3px;
+}
+
+
+/* ── Team Stats & Members ── */
+.teamStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.teamStat {
+  background: #f9fafb;
+  border: 1px solid rgba(30, 27, 53, 0.04);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teamStatIcon {
+  flex-shrink: 0;
+}
+
+.teamStatVal {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1E1B35;
+  line-height: 1.1;
+}
+
+.teamStatLabel {
+  font-size: 0.6rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.teamMember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  background: #f9fafb;
+  transition: background 0.15s;
+}
+
+.teamMember:hover {
+  background: #f3f4f6;
+}
+
+.memberAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(30, 27, 53, 0.05);
+  color: #1E1B35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memberInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.memberName {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1E1B35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.memberRole {
+  font-size: 0.65rem;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.memberStatus {
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1200px) {
+  .sidebar {
+    display: none;
+  }
+}

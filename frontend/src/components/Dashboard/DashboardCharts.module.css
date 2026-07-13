@@ -1,0 +1,79 @@
+/* ==========================================================================
+   DashboardCharts.module.css
+   ========================================================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  border: 1px solid rgba(30, 27, 53, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 24px rgba(30, 27, 53, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1E1B35;
+}
+
+.cardBadge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  background: rgba(217, 255, 79, 0.25);
+  color: #4a5200;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.chartWrapper {
+  width: 100%;
+}
+
+/* Legend (Pie) */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 16px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.legendDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

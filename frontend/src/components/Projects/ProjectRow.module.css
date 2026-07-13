@@ -1,0 +1,164 @@
+/* ==========================================================================
+   ProjectRow.module.css — List view table row
+   ========================================================================== */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(30,27,53,0.06);
+  border: 1px solid rgba(30,27,53,0.05);
+}
+
+.thead th {
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  padding: 14px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid rgba(30,27,53,0.06);
+  white-space: nowrap;
+}
+
+.row {
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.row:hover td {
+  background: #f9fafb;
+}
+
+.row td {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(30,27,53,0.04);
+  vertical-align: middle;
+}
+
+.row:last-child td {
+  border-bottom: none;
+}
+
+.projectName {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1E1B35;
+}
+
+.projectDesc {
+  font-size: 0.72rem;
+  color: #9ca3af;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.progressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 5px;
+  background: #f3f4f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 999px;
+}
+
+.progressPct {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #6b7280;
+  min-width: 28px;
+}
+
+.date {
+  font-size: 0.78rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.creator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #6b7280;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.actionBtn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 15px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.actionBtn:hover {
+  background: #1E1B35;
+  color: #D9FF4F;
+}
+
+.actionBtn.danger:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+@media (max-width: 900px) {
+  .table thead th:nth-child(n+5),
+  .table tbody td:nth-child(n+5) { display: none; }
+}
+@media (max-width: 640px) {
+  .table thead th:nth-child(n+4),
+  .table tbody td:nth-child(n+4) { display: none; }
+}

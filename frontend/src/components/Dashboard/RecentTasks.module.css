@@ -1,0 +1,141 @@
+/* ==========================================================================
+   RecentTasks.module.css
+   ========================================================================== */
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  border: 1px solid rgba(30, 27, 53, 0.05);
+  margin-bottom: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1E1B35;
+}
+
+.viewAll {
+  font-size: 0.78rem;
+  color: #6366f1;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(30,27,53,0.05);
+  transition: background 0.15s;
+}
+
+.taskItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Checkbox indicator */
+.check {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 2px solid #e5e7eb;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.check.done {
+  background: #22c55e;
+  border-color: #22c55e;
+  color: #fff;
+}
+
+/* Task info */
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1E1B35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 3px;
+}
+
+.project {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+.due {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Right side */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.priority {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.assigneeAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+@media (max-width: 640px) {
+  .meta .project { display: none; }
+}

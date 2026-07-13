@@ -1,0 +1,212 @@
+/* ==========================================================================
+   Navbar.module.css — Top Navigation Bar
+   ProjectPilot Phase 2 Dashboard
+   ========================================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  right: 280px;
+  height: 64px;
+  background: rgba(247, 248, 252, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(30, 27, 53, 0.08);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 90;
+  transition: left 0.3s ease;
+}
+
+/* ── Page Title ── */
+.pageTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1E1B35;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+
+/* ── Search ── */
+.searchWrapper {
+  flex: 1;
+  max-width: 360px;
+  position: relative;
+  margin-left: 4px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(30, 27, 53, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 0.8125rem;
+  color: #1E1B35;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchInput:focus {
+  border-color: #D9FF4F;
+  box-shadow: 0 0 0 3px rgba(217, 255, 79, 0.2);
+  background: #fff;
+}
+
+/* ── Right Actions ── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.iconBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(30, 27, 53, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.iconBtn:hover {
+  background: #fff;
+  color: #1E1B35;
+  border-color: rgba(30, 27, 53, 0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.notifDot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 1.5px solid #f7f8fc;
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(30, 27, 53, 0.1);
+  margin: 0 4px;
+}
+
+/* ── Profile ── */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.profile:hover {
+  background: rgba(255,255,255,0.8);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1E1B35;
+  line-height: 1.2;
+}
+
+.roleBadge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(217, 255, 79, 0.25);
+  color: #4a5200;
+  padding: 1px 6px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .navbar {
+    left: 64px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    left: 0;
+    right: 0;
+    padding: 0 16px;
+  }
+  .pageTitle {
+    display: none;
+  }
+  .searchWrapper {
+    max-width: 200px;
+  }
+  .profileInfo {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchWrapper {
+    display: none;
+  }
+}

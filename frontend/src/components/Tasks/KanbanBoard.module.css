@@ -1,0 +1,117 @@
+/* ==========================================================================
+   KanbanBoard.module.css — Drag and Drop Board
+   ========================================================================== */
+
+.board {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  min-height: 520px;
+}
+
+.board::-webkit-scrollbar {
+  height: 6px;
+}
+.board::-webkit-scrollbar-thumb {
+  background: rgba(30, 27, 53, 0.1);
+  border-radius: 4px;
+}
+
+/* Kanban column */
+.column {
+  flex: 1;
+  min-width: 250px;
+  max-width: 320px;
+  background: #f8fafc;
+  border-radius: 20px;
+  border: 1px solid rgba(30, 27, 53, 0.04);
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  height: calc(100vh - 280px);
+  min-height: 480px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.column.dragOver {
+  background-color: #f1f5f9;
+  border-color: #6366f1;
+}
+
+/* Column Header */
+.colHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+.colTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.colIcon {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Column color themes */
+.todoIcon      { color: #6b7280; }
+.inprogressIcon { color: #3b82f6; }
+.inreviewIcon   { color: #8b5cf6; }
+.blockedIcon    { color: #ef4444; }
+.completedIcon  { color: #10b981; }
+.archivedIcon   { color: #9ca3af; }
+
+.colTitle {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: #1E1B35;
+}
+
+.countBadge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: #e2e8f0;
+  color: #475569;
+  padding: 2px 7px;
+  border-radius: 99px;
+}
+
+/* Cards container */
+.cardsList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.cardsList::-webkit-scrollbar {
+  width: 4px;
+}
+.cardsList::-webkit-scrollbar-thumb {
+  background: rgba(30, 27, 53, 0.06);
+  border-radius: 4px;
+}
+
+/* Empty placeholder */
+.emptyCol {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed rgba(30, 27, 53, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-align: center;
+}
