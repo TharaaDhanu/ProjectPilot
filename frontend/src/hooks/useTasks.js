@@ -47,7 +47,7 @@ export const useTasks = (initialFilters = {}) => {
         if (filters[k] !== '') cleanFilters[k] = filters[k];
       });
       const data = await taskService.getTasks(cleanFilters);
-      setTasks(data);
+      setTasks(Array.isArray(data) ? data : []);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch tasks.');
     } finally {
@@ -60,7 +60,7 @@ export const useTasks = (initialFilters = {}) => {
     setStatsLoading(true);
     try {
       const data = await taskService.getStatistics();
-      setStats(data);
+      setStats(data || {});
     } catch (err) {
       console.error('Failed to fetch task stats:', err);
     } finally {
@@ -72,7 +72,7 @@ export const useTasks = (initialFilters = {}) => {
   const fetchUsers = useCallback(async () => {
     try {
       const data = await taskService.getUsers();
-      setUsers(data);
+      setUsers(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Failed to fetch assignees:', err);
     }
@@ -82,7 +82,14 @@ export const useTasks = (initialFilters = {}) => {
   const fetchNotifications = useCallback(async () => {
     try {
       const data = await taskService.getNotifications();
-      setNotifications(data);
+      // Backend returns { notifications: [...], total: ... }
+      // Always extract the array defensively
+      const notifArray = Array.isArray(data)
+        ? data
+        : Array.isArray(data?.notifications)
+          ? data.notifications
+          : [];
+      setNotifications(notifArray);
     } catch (err) {
       console.error('Failed to fetch notifications:', err);
     }

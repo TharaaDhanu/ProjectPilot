@@ -42,7 +42,7 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .main {
     margin-right: 0;
   }
@@ -60,5 +60,12 @@
   }
   .content {
     padding: 16px;
+  }
+}
+
+/* ── Large Desktop ── */
+@media (min-width: 1600px) {
+  .main {
+    margin-right: 320px;
   }
 }

@@ -17,6 +17,7 @@ from flask import request
 from flask_jwt_extended import get_jwt_identity
 
 from services.project_service import ProjectService, ProjectServiceError
+from services.notification_service import NotificationService
 from utils.response import success_response, error_response
 
 
@@ -61,6 +62,19 @@ def create_project() -> tuple:
     except ProjectServiceError as exc:
         return error_response(exc.message, exc.http_status)
 
+    # Auto-generate notification for project creation
+    try:
+        NotificationService.create_notification(
+            user_id=user_id,
+            title="Project Created",
+            message=f"Project '{project.title}' has been created successfully.",
+            notification_type="project_created",
+            priority="normal",
+            related_project_id=project.id,
+        )
+    except Exception:
+        pass
+
     return success_response(
         data=project.to_dict(),
         message="Project created successfully.",
@@ -78,6 +92,22 @@ def update_project(project_id: int) -> tuple:
     except ProjectServiceError as exc:
         return error_response(exc.message, exc.http_status)
 
+    # Auto-generate notification for project update
+    try:
+        is_completed = data.get("status") == "Completed"
+        notif_type = "project_completed" if is_completed else "project_updated"
+        notif_title = "Project Completed" if is_completed else "Project Updated"
+        NotificationService.create_notification(
+            user_id=user_id,
+            title=notif_title,
+            message=f"Project '{project.title}' has been {'completed' if is_completed else 'updated'}.",
+            notification_type=notif_type,
+            priority="high" if is_completed else "normal",
+            related_project_id=project.id,
+        )
+    except Exception:
+        pass
+
     return success_response(data=project.to_dict(), message="Project updated.")
 
 
@@ -86,9 +116,23 @@ def delete_project(project_id: int) -> tuple:
     user_id = int(get_jwt_identity())
 
     try:
+        project = ProjectService.get_by_id(project_id, user_id)
+        project_title = project.title if project else "Unknown"
         ProjectService.delete(project_id, user_id)
     except ProjectServiceError as exc:
         return error_response(exc.message, exc.http_status)
+
+    # Auto-generate notification for project deletion
+    try:
+        NotificationService.create_notification(
+            user_id=user_id,
+            title="Project Deleted",
+            message=f"Project '{project_title}' has been deleted.",
+            notification_type="system_alert",
+            priority="high",
+        )
+    except Exception:
+        pass
 
     return success_response(data=None, message="Project deleted.")
 

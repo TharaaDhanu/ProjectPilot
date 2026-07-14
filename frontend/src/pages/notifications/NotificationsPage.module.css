@@ -1,0 +1,357 @@
+/* ==========================================================================
+   NotificationsPage.module.css — Full Notifications Management Page
+   ========================================================================== */
+
+.page {
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Summary Cards ── */
+.summaryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .summaryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summaryCard {
+  background: #ffffff;
+  border: 1px solid rgba(30, 27, 53, 0.06);
+  border-radius: 20px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  transition: all 0.2s ease;
+}
+
+.summaryCard:hover {
+  box-shadow: 0 4px 16px rgba(30, 27, 53, 0.1);
+  transform: translateY(-2px);
+}
+
+.summaryIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.summaryInfo {
+  flex: 1;
+}
+
+.summaryValue {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1E1B35;
+  line-height: 1.1;
+}
+
+.summaryLabel {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Toolbar ── */
+.toolbar {
+  background: #ffffff;
+  border: 1px solid rgba(30, 27, 53, 0.06);
+  border-radius: 20px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+}
+
+.searchWrapper {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 9px 14px 9px 36px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(30, 27, 53, 0.1);
+  background: #F7F8FC;
+  font-size: 0.8125rem;
+  color: #1E1B35;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchInput:focus {
+  border-color: #D9FF4F;
+  box-shadow: 0 0 0 3px rgba(217, 255, 79, 0.2);
+  background: #fff;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+}
+
+.filterSelect {
+  padding: 7px 10px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(30, 27, 53, 0.1);
+  background: #F7F8FC;
+  font-size: 0.75rem;
+  color: #374151;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.filterSelect:focus {
+  border-color: #D9FF4F;
+  box-shadow: 0 0 0 3px rgba(217, 255, 79, 0.2);
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(30, 27, 53, 0.1);
+  background: #F7F8FC;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.actionBtn:hover {
+  background: #fff;
+  border-color: rgba(30, 27, 53, 0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* ── Content ── */
+.content {
+  background: #ffffff;
+  border: 1px solid rgba(30, 27, 53, 0.06);
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  min-height: 200px;
+}
+
+.notifList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Loading / Empty / Error states ── */
+.loadingState {
+  padding: 20px;
+}
+
+.skeleton {
+  height: 72px;
+  background: #F7F8FC;
+  border: 1px solid rgba(30, 27, 53, 0.06);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%   { opacity: 0.5; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+  text-align: center;
+}
+
+.emptyState svg {
+  margin-bottom: 12px;
+  opacity: 0.3;
+}
+
+.emptyState p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.emptyState span {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.retryBtn {
+  margin-top: 16px;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background: #8b5cf6;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.retryBtn:hover {
+  opacity: 0.9;
+}
+
+/* ── Activity Timeline ── */
+.timelineSection {
+  margin-top: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(30, 27, 53, 0.06);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+}
+
+.timelineTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E1B35;
+  margin-bottom: 16px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: rgba(30, 27, 53, 0.08);
+  border-radius: 2px;
+}
+
+.timelineItem {
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineDot {
+  position: absolute;
+  left: -17px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.timelineContent {
+  padding-left: 8px;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.timelineType {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1E1B35;
+  text-transform: capitalize;
+}
+
+.timelineTime {
+  font-size: 0.68rem;
+  color: #9ca3af;
+  white-space: nowrap;
+}
+
+.timelineMessage {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.4;
+  margin: 0;
+}

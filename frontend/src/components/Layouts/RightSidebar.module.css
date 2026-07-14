@@ -210,6 +210,108 @@
   margin-top: 2px;
 }
 
+/* ── Latest Notifications ── */
+.notifItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  background: #f9fafb;
+  transition: background 0.15s;
+}
+
+.notifItem:hover {
+  background: #f3f4f6;
+}
+
+.notifDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.notifInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.notifTitle {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #1E1B35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+
+.notifTime {
+  font-size: 0.6rem;
+  color: #9ca3af;
+  margin-top: 1px;
+}
+
+.seeAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: #6366f1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.seeAllBtn:hover {
+  color: #8b5cf6;
+}
+
+/* ── Quick Actions ── */
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quickActionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid rgba(30, 27, 53, 0.04);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.quickActionBtn:hover {
+  background: #f3f4f6;
+  border-color: rgba(30, 27, 53, 0.1);
+}
+
+/* ── Timeline Dot (new for real activities) ── */
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
 /* ── Upcoming Meetings ── */
 .meetingItem {
   display: flex;

@@ -74,10 +74,15 @@ const taskService = {
 
   /**
    * Fetch user notifications
+   * @returns {Array} notifications array
    */
   getNotifications: async () => {
     const response = await api.get('/api/notifications');
-    return response.data.data;
+    const payload = response.data.data;
+    // Backend returns { notifications: [...], total: N }
+    if (Array.isArray(payload)) return payload;
+    if (Array.isArray(payload?.notifications)) return payload.notifications;
+    return [];
   },
 
   /**

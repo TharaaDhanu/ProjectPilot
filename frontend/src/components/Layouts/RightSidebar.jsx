@@ -5,17 +5,21 @@
  * - Mini monthly calendar (dayjs)
  * - Live team stats (from /api/team/statistics)
  * - Recently joined employees
+ * - Latest notifications
  * - Activity timeline
- * - Upcoming meetings
+ * - Upcoming deadlines
+ * - Quick Actions
  */
 
 import React, { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { MdChevronLeft, MdChevronRight, MdVideoCall } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { MdChevronLeft, MdChevronRight, MdVideoCall, MdNotificationsActive, MdArrowForward } from 'react-icons/md';
 import { LuUsers, LuUserCheck, LuUserMinus } from 'react-icons/lu';
 
-import { activityTimeline, upcomingMeetings } from '../../data/mockData';
+import { upcomingMeetings } from '../../data/mockData';
 import teamService from '../../services/teamService';
+import notificationService from '../../services/notificationService';
 import styles from './RightSidebar.module.css';
 
 // ─── Priority colours ─────────────────────────────────────────────────────────
@@ -33,20 +37,16 @@ const MiniCalendar = () => {
 
   const startOfMonth = current.startOf('month');
   const daysInMonth  = current.daysInMonth();
-  const firstDow     = startOfMonth.day(); // 0=Sun
+  const firstDow     = startOfMonth.day();
 
   const days = [];
-
-  // Padding from previous month
   for (let i = 0; i < firstDow; i++) {
     const d = startOfMonth.subtract(firstDow - i, 'day');
     days.push({ date: d, otherMonth: true });
   }
-  // Current month days
   for (let i = 1; i <= daysInMonth; i++) {
     days.push({ date: current.date(i), otherMonth: false });
   }
-  // Trailing padding to complete grid
   const trailing = 42 - days.length;
   for (let i = 1; i <= trailing; i++) {
     days.push({ date: current.endOf('month').add(i, 'day'), otherMonth: true });
@@ -73,7 +73,6 @@ const MiniCalendar = () => {
           <MdChevronRight size={18} />
         </button>
       </div>
-
       <div className={styles.calendarGrid}>
         {['Su','Mo','Tu','We','Th','Fr','Sa'].map(d => (
           <div key={d} className={styles.calendarDayName}>{d}</div>
@@ -130,7 +129,6 @@ const TeamStats = () => {
 
   return (
     <>
-      {/* Team Overview */}
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Team Overview</div>
         <div className={styles.teamStatsGrid}>
@@ -158,7 +156,6 @@ const TeamStats = () => {
         </div>
       </div>
 
-      {/* Recently Joined */}
       {recent.length > 0 && (
         <div className={styles.section}>
           <div className={styles.sectionTitle}>Recently Joined</div>
@@ -184,7 +181,6 @@ const TeamStats = () => {
         </div>
       )}
 
-      {/* On Leave */}
       {onLeave.length > 0 && (
         <div className={styles.section}>
           <div className={styles.sectionTitle}>On Leave</div>
@@ -205,42 +201,120 @@ const TeamStats = () => {
   );
 };
 
+// ─── Latest Notifications ─────────────────────────────────────────────────────
+const LatestNotifications = () => {
+  const [notifs, setNotifs] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    notificationService.getUnread(5)
+      .then(result => {
+        // notificationService.getUnread() returns an array directly
+        const list = Array.isArray(result) ? result : (result?.notifications || []);
+        setNotifs(list);
+      })
+      .catch(() => {});
+  }, []);
+
+  if (notifs.length === 0) return null;
+
+  return (
+    <div className={styles.section}>
+      <div className={styles.sectionTitle}>
+        Latest Notifications
+        <button className={styles.seeAllBtn} onClick={() => navigate('/notifications')}>
+          See All <MdArrowForward size={12} />
+        </button>
+      </div>
+      {notifs.slice(0, 4).map(notif => (
+        <div key={notif.id} className={styles.notifItem}>
+          <div className={styles.notifDot} style={{ background: PRIORITY_COLOR[notif.priority] || '#3b82f6' }} />
+          <div className={styles.notifInfo}>
+            <div className={styles.notifTitle}>{notif.title || notif.type?.replace(/_/g, ' ')}</div>
+            <div className={styles.notifTime}>
+              {notif.created_at ? dayjs(notif.created_at).fromNow() : ''}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ─── Activity Timeline ────────────────────────────────────────────────────────
+const ActivityTimeline = () => {
+  const [activities, setActivities] = useState([]);
+
+  useEffect(() => {
+    notificationService.getRecentActivities(5)
+      .then(setActivities)
+      .catch(() => {});
+  }, []);
+
+  if (activities.length === 0) return null;
+
+  return (
+    <div className={styles.section}>
+      <div className={styles.sectionTitle}>Recent Activity</div>
+      {activities.map(item => (
+        <div key={item.id} className={styles.timelineItem}>
+          <div className={styles.timelineDot} />
+          <div className={styles.timelineContent}>
+            <div className={styles.timelineText}>
+              {item.title || item.type?.replace(/_/g, ' ')}
+            </div>
+            <div className={styles.timelineTime}>
+              {item.created_at ? dayjs(item.created_at).fromNow() : ''}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// ─── Upcoming Deadlines (from mockData for now) ──────────────────────────────
+const UpcomingDeadlines = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className={styles.section}>
+      <div className={styles.sectionTitle}>
+        Quick Actions
+      </div>
+      <div className={styles.quickActions}>
+        <button className={styles.quickActionBtn} onClick={() => navigate('/projects')}>
+          <MdNotificationsActive size={16} />
+          View Projects
+        </button>
+        <button className={styles.quickActionBtn} onClick={() => navigate('/tasks')}>
+          <MdVideoCall size={16} />
+          View Tasks
+        </button>
+        <button className={styles.quickActionBtn} onClick={() => navigate('/notifications')}>
+          <MdArrowForward size={16} />
+          All Notifications
+        </button>
+      </div>
+    </div>
+  );
+};
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 const RightSidebar = () => {
   return (
     <aside className={styles.sidebar}>
-
-      {/* Mini Calendar */}
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Calendar</div>
         <MiniCalendar />
       </div>
 
-      {/* Live Team Stats */}
       <TeamStats />
+      <LatestNotifications />
+      <ActivityTimeline />
+      <UpcomingDeadlines />
 
-      {/* Activity Timeline */}
-      <div className={styles.section}>
-        <div className={styles.sectionTitle}>Recent Activity</div>
-        {activityTimeline.map(item => (
-          <div key={item.id} className={styles.timelineItem}>
-            <div
-              className={styles.timelineAvatar}
-              style={{ background: item.color + '22', color: item.color }}
-            >
-              {item.avatar}
-            </div>
-            <div className={styles.timelineContent}>
-              <div className={styles.timelineText}>
-                <strong>{item.user}</strong> {item.action} <strong>{item.target}</strong>
-              </div>
-              <div className={styles.timelineTime}>{item.time}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Upcoming Meetings */}
+      {/* Upcoming Meetings (from mockData) */}
       <div className={styles.section}>
         <div className={styles.sectionTitle}>Upcoming Meetings</div>
         {upcomingMeetings.map(meeting => (
@@ -256,7 +330,6 @@ const RightSidebar = () => {
           </div>
         ))}
       </div>
-
     </aside>
   );
 };

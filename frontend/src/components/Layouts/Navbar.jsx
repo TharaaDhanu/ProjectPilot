@@ -3,11 +3,12 @@
  * --------------------------------
  * Fixed top navigation bar.
  * - Search bar
- * - Settings + Notifications icons
+ * - Settings + Notifications icons (with unread badge & drawer)
  * - User avatar, name, role badge
  */
 
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MdSearch,
   MdSettings,
@@ -16,10 +17,92 @@ import {
 } from 'react-icons/md';
 
 import { useAuth } from '../../hooks/useAuth';
+import notificationService from '../../services/notificationService';
+import NotificationDrawer from '../Notifications/NotificationDrawer';
 import styles from './Navbar.module.css';
 
 const Navbar = ({ pageTitle = 'Dashboard' }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  // ── Notification state ──────────────────────────────────────────────────
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [notifLoading, setNotifLoading] = useState(false);
+
+  const fetchNotifs = useCallback(async () => {
+    try {
+      setNotifLoading(true);
+      const result = await notificationService.getUnread(10);
+      setNotifications(result.notifications || []);
+    } catch {
+      // silent
+    } finally {
+      setNotifLoading(false);
+    }
+  }, []);
+
+  const fetchUnreadCount = useCallback(async () => {
+    try {
+      const data = await notificationService.getUnreadCount();
+      setUnreadCount(data?.count || 0);
+    } catch {
+      // silent
+    }
+  }, []);
+
+  // Initial fetch + polling
+  useEffect(() => {
+    fetchUnreadCount();
+    const interval = setInterval(fetchUnreadCount, 30000);
+    return () => clearInterval(interval);
+  }, [fetchUnreadCount]);
+
+  const handleNotifToggle = () => {
+    if (!notifOpen) {
+      fetchNotifs();
+    }
+    setNotifOpen(prev => !prev);
+  };
+
+  const handleMarkRead = async (id) => {
+    try {
+      await notificationService.markAsRead(id);
+      setNotifications(prev => prev.filter(n => n.id !== id));
+      setUnreadCount(prev => Math.max(0, prev - 1));
+    } catch {
+      // silent
+    }
+  };
+
+  const handleMarkAllRead = async () => {
+    try {
+      await notificationService.markAllAsRead();
+      setNotifications([]);
+      setUnreadCount(0);
+    } catch {
+      // silent
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await notificationService.deleteNotification(id);
+      const deleted = notifications.find(n => n.id === id);
+      setNotifications(prev => prev.filter(n => n.id !== id));
+      if (deleted && !deleted.is_read) {
+        setUnreadCount(prev => Math.max(0, prev - 1));
+      }
+    } catch {
+      // silent
+    }
+  };
+
+  const handleViewAll = () => {
+    setNotifOpen(false);
+    navigate('/notifications');
+  };
 
   const initials = user
     ? (user.first_name?.[0] || user.username?.[0] || 'U').toUpperCase() +
@@ -55,10 +138,32 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
           <MdSettings size={18} />
         </button>
 
-        <button id="navbar-notif-btn" className={styles.iconBtn} aria-label="Notifications">
-          <MdNotifications size={18} />
-          <span className={styles.notifDot} />
-        </button>
+        {/* Notification dropdown wrapper */}
+        <div className={styles.notifWrapper}>
+          <button
+            id="navbar-notif-btn"
+            className={`${styles.iconBtn} ${notifOpen ? styles.active : ''}`}
+            aria-label="Notifications"
+            onClick={handleNotifToggle}
+          >
+            <MdNotifications size={18} />
+            {unreadCount > 0 && (
+              <span className={styles.notifBadge}>{unreadCount > 99 ? '99+' : unreadCount}</span>
+            )}
+          </button>
+
+          <NotificationDrawer
+            open={notifOpen}
+            onClose={() => setNotifOpen(false)}
+            notifications={notifications}
+            unreadCount={unreadCount}
+            onMarkRead={handleMarkRead}
+            onMarkAllRead={handleMarkAllRead}
+            onDelete={handleDelete}
+            loading={notifLoading}
+            onViewAll={handleViewAll}
+          />
+        </div>
 
         <div className={styles.divider} />
 
@@ -72,6 +177,7 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
           <MdKeyboardArrowDown size={16} style={{ color: '#9ca3af', marginLeft: 2 }} />
         </div>
       </div>
+
     </header>
   );
 };

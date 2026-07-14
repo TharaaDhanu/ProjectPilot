@@ -1,0 +1,496 @@
+/* ==========================================================================
+   SettingsPage.module.css
+   ========================================================================== */
+
+.page {
+  animation: fadeIn 0.35s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Layout ── */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Tabs Navigation ── */
+.tabsNav {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  border: 1px solid rgba(30, 27, 53, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.tabBtn:hover {
+  background: #F7F8FC;
+  color: #1E1B35;
+}
+
+.tabBtnActive {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
+  color: #8b5cf6;
+}
+
+/* ── Tab Panel ── */
+.tabPanel {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
+  border: 1px solid rgba(30, 27, 53, 0.05);
+  min-height: 500px;
+}
+
+.tabContent {
+  animation: fadeIn 0.3s ease;
+}
+
+.sectionTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1E1B35;
+  margin: 0 0 20px;
+}
+
+.subSectionTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1E1B35;
+  margin: 24px 0 12px;
+}
+
+/* ── Forms ── */
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroupFull {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(30, 27, 53, 0.08);
+  background: #F7F8FC;
+  font-size: 0.85rem;
+  color: #1E1B35;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── Toggle Row ── */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(30, 27, 53, 0.05);
+}
+
+.toggleRow label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1E1B35;
+}
+
+.toggleRow input[type="checkbox"] {
+  width: 44px;
+  height: 24px;
+  accent-color: #8b5cf6;
+  cursor: pointer;
+}
+
+/* ── Buttons ── */
+.tabActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(30, 27, 53, 0.05);
+}
+
+.saveBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.saveBtn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primaryBtn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #8b5cf6;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primaryBtn:hover {
+  background: #7c3aed;
+}
+
+.secondaryBtn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(30, 27, 53, 0.08);
+  background: #F7F8FC;
+  color: #1E1B35;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondaryBtn:hover {
+  background: #8b5cf6;
+  color: #fff;
+  border-color: #8b5cf6;
+}
+
+/* ── Account Card ── */
+.accountCard {
+  background: #F7F8FC;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.accountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(30, 27, 53, 0.05);
+}
+
+.accountRow:last-child {
+  border-bottom: none;
+}
+
+.accountLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.accountValue {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1E1B35;
+}
+
+.accountBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.accountBadge.active {
+  background: rgba(34, 197, 94, 0.12);
+  color: #16a34a;
+}
+
+/* ── Danger Zone ── */
+.dangerZone {
+  background: rgba(239, 68, 68, 0.06);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.dangerZone h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ef4444;
+  margin: 0 0 12px;
+}
+
+.dangerBtn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.dangerBtn:hover {
+  opacity: 0.9;
+}
+
+/* ── History List ── */
+.historyList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.historyItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #F7F8FC;
+  border-radius: 12px;
+}
+
+.historyDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.historyTime {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* ── Roles Grid ── */
+.rolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.roleCard {
+  background: #F7F8FC;
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.2s;
+}
+
+.roleCard:hover {
+  box-shadow: 0 4px 16px rgba(30, 27, 53, 0.08);
+}
+
+.roleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.roleHeader h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1E1B35;
+  margin: 0;
+}
+
+.roleBadge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(139, 92, 246, 0.12);
+  color: #8b5cf6;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.roleDesc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 12px;
+}
+
+.permList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.permChip {
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(30, 27, 53, 0.05);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* ── System Grid ── */
+.systemGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .systemGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.systemItem {
+  background: #F7F8FC;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.systemLabel {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.systemValue {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #1E1B35;
+}
+
+/* ── About Card ── */
+.aboutCard {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.aboutIcon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.aboutCard h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1E1B35;
+  margin: 0 0 4px;
+}
+
+.aboutCard p {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 20px;
+}
+
+.aboutMeta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.aboutMeta div {
+  font-size: 0.85rem;
+  color: #1E1B35;
+}
+
+/* ── Loader ── */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}

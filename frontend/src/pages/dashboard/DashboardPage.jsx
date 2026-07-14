@@ -13,7 +13,8 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { MdWbSunny, MdAdd, MdAddTask } from 'react-icons/md';
+import { MdWbSunny, MdAdd, MdAddTask, MdNotifications } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 import DashboardLayout   from '../../components/Layouts/DashboardLayout';
 import DashboardCards    from '../../components/Dashboard/DashboardCards';
@@ -31,6 +32,7 @@ import { useProjects }   from '../../hooks/useProjects';
 import { useTasks }      from '../../hooks/useTasks';
 import { getProjects }   from '../../services/projectService';
 import calendarService   from '../../services/calendarService';
+import notificationService from '../../services/notificationService';
 import { toast }         from 'react-toastify';
 import styles            from './DashboardPage.module.css';
 
@@ -137,6 +139,20 @@ const DashboardPage = () => {
   // ── Recent projects ───────────────────────────────────────────────────
   const recentProjects = projects.slice(0, 5);
 
+  // ── Notification integration ──────────────────────────────────────────
+  const navigate = useNavigate();
+  const [notifSummary, setNotifSummary] = useState(null);
+  const [latestNotifs, setLatestNotifs] = useState([]);
+
+  useEffect(() => {
+    notificationService.getSummary()
+      .then(setNotifSummary)
+      .catch(() => {});
+    notificationService.getUnread(5)
+      .then(result => setLatestNotifs(result.notifications || []))
+      .catch(() => {});
+  }, []);
+
   // ── Calendar integration: upcoming events + today's meetings ──
   const [calDash, setCalDash] = useState(null);
   useEffect(() => {
@@ -164,6 +180,45 @@ const DashboardPage = () => {
             {dayjs().format('dddd, MMMM D, YYYY')}
           </div>
         </div>
+
+        {/* ── Notification Summary Card ── */}
+        {notifSummary && notifSummary.unread > 0 && (
+          <div className={styles.notifBanner}>
+            <div className={styles.notifBannerIcon}>
+              <MdNotifications size={20} />
+            </div>
+            <div className={styles.notifBannerInfo}>
+              <div className={styles.notifBannerTitle}>
+                You have {notifSummary.unread} unread notification{notifSummary.unread !== 1 ? 's' : ''}
+              </div>
+              <div className={styles.notifBannerSub}>
+                {notifSummary.todays_count > 0 && `${notifSummary.todays_count} today`}
+                {notifSummary.high_priority > 0 && (notifSummary.todays_count > 0 ? ' · ' : '')}
+                {notifSummary.high_priority > 0 && `${notifSummary.high_priority} high priority`}
+              </div>
+            </div>
+            <button className={styles.notifBannerBtn} onClick={() => navigate('/notifications')}>
+              View All
+            </button>
+          </div>
+        )}
+
+        {/* ── Latest Notifications Row ── */}
+        {latestNotifs.length > 0 && (
+          <div className={styles.latestNotifs}>
+            {latestNotifs.slice(0, 3).map(notif => (
+              <div key={notif.id} className={styles.latestNotifCard} onClick={() => navigate('/notifications')}>
+                <div className={styles.latestNotifDot} style={{
+                  background: notif.priority === 'critical' ? '#ef4444' : notif.priority === 'high' ? '#f59e0b' : '#3b82f6'
+                }} />
+                <div className={styles.latestNotifContent}>
+                  <div className={styles.latestNotifTitle}>{notif.title || notif.type?.replace(/_/g, ' ')}</div>
+                  <div className={styles.latestNotifMsg}>{notif.message}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* ── Today's Deadlines Banner ── */}
         {todaysDeadlines.length > 0 && (

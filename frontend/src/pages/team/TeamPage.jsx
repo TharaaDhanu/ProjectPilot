@@ -14,6 +14,7 @@ import {
   LuTrash2, LuX,
 } from 'react-icons/lu';
 
+import DashboardLayout from '../../components/Layouts/DashboardLayout';
 import { useTeam } from '../../hooks/useTeam';
 import EmployeeCard from '../../components/Team/EmployeeCard';
 import EmployeeTable from '../../components/Team/EmployeeTable';
@@ -91,6 +92,7 @@ const TeamPage = () => {
   };
 
   return (
+    <DashboardLayout pageTitle="Team">
     <div className={styles.page}>
       {/* ── Page Header ── */}
       <div className={styles.pageHeader}>
@@ -294,6 +296,7 @@ const TeamPage = () => {
         </div>
       )}
     </div>
+    </DashboardLayout>
   );
 };
 

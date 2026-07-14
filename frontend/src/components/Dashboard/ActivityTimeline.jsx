@@ -35,17 +35,24 @@ const parseMessage = (msg = '') => {
 };
 
 const ActivityTimeline = ({
-  notifications = [],
+  notifications: rawNotifications,
   onMarkRead,
   onMarkAllRead,
 }) => {
-  const items = notifications.slice(0, 10);
+  // Defensive: notifications may be an object { notifications: [...] } or an array
+  const safeNotifications = Array.isArray(rawNotifications)
+    ? rawNotifications
+    : Array.isArray(rawNotifications?.notifications)
+      ? rawNotifications.notifications
+      : [];
+
+  const items = safeNotifications.slice(0, 10);
 
   return (
     <div id="activity-timeline" className={styles.card}>
       <div className={styles.cardHeader}>
         <span className={styles.cardTitle}>Activity Timeline</span>
-        {notifications.some((n) => !n.is_read) && (
+        {safeNotifications.some((n) => !n.is_read) && (
           <button className={styles.viewAll} onClick={onMarkAllRead}>
             Mark all read
           </button>

@@ -18,8 +18,10 @@ import ProjectsPage  from '../pages/projects/ProjectsPage';
 import TasksPage     from '../pages/tasks/TasksPage';
 import TeamPage      from '../pages/team/TeamPage';
 import CalendarPage  from '../pages/calendar/CalendarPage';
-import ReportsPage   from '../pages/reports/ReportsPage';
-import ProtectedRoute from './ProtectedRoute';
+import ReportsPage        from '../pages/reports/ReportsPage';
+import NotificationsPage  from '../pages/notifications/NotificationsPage';
+import SettingsPage       from '../pages/settings/SettingsPage';
+import ProtectedRoute     from './ProtectedRoute';
 
 const AppRoutes = () => {
   return (
@@ -52,8 +54,8 @@ const AppRoutes = () => {
       <Route path="/team"          element={<ProtectedRoute><TeamPage /></ProtectedRoute>} />
       <Route path="/calendar"      element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
       <Route path="/reports"       element={<ProtectedRoute><ReportsPage /></ProtectedRoute>} />
-      <Route path="/notifications" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-      <Route path="/settings"      element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/notifications" element={<ProtectedRoute><NotificationsPage /></ProtectedRoute>} />
+      <Route path="/settings"      element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
 
       {/* Catch-all: redirect unknown paths to login */}
       <Route path="*" element={<Navigate to="/login" replace />} />

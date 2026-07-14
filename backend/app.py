@@ -25,6 +25,7 @@ from routes.task_routes    import task_bp
 from routes.notification_routes import notification_bp
 from routes.team_routes    import team_bp
 from routes.calendar_routes import calendar_bp
+from routes.settings_routes import settings_bp
 from middleware.error_handlers import register_error_handlers
 
 
@@ -92,6 +93,7 @@ def create_app(env: str = None) -> Flask:
     app.register_blueprint(notification_bp)
     app.register_blueprint(team_bp)
     app.register_blueprint(calendar_bp)
+    app.register_blueprint(settings_bp)
 
     # ------------------------------------------------------------------ #
     # Register global error handlers
@@ -108,6 +110,7 @@ def create_app(env: str = None) -> Flask:
         from models.task    import Task     # noqa: F401
         from models.notification import Notification # noqa: F401
         from models.calendar_event import CalendarEvent # noqa: F401
+        from models.settings import Role, Permission, UserPreferences, SecuritySettings, NotificationPreference, LoginHistory # noqa: F401
 
         db.create_all()
         app.logger.info("Database tables verified/created.")
