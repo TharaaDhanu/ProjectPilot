@@ -9,7 +9,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   MdDashboard,
   MdFolder,
@@ -19,7 +19,6 @@ import {
   MdBarChart,
   MdNotifications,
   MdSettings,
-  MdLogout,
   MdRocketLaunch,
   MdChevronLeft,
   MdChevronRight,
@@ -43,7 +42,6 @@ const navItems = [
 
 const Sidebar = () => {
   const { logout } = useAuth();
-  const navigate   = useNavigate();
   const { leftCollapsed, toggleLeft } = useSidebar();
   const [notifCount, setNotifCount] = useState(0);
 
@@ -60,11 +58,6 @@ const Sidebar = () => {
     const interval = setInterval(fetchCount, 30000);
     return () => clearInterval(interval);
   }, []);
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login', { replace: true });
-  };
 
   return (
     <aside className={`${styles.sidebar} ${leftCollapsed ? styles.collapsed : ''}`}>
@@ -125,18 +118,6 @@ const Sidebar = () => {
         </div>
       </nav>
 
-      {/* ── Logout ── */}
-      <div className={styles.bottom}>
-        <button 
-          className={styles.logoutBtn} 
-          onClick={handleLogout}
-          title={leftCollapsed ? 'Logout' : undefined}
-        >
-          <span className={styles.navIcon}><MdLogout size={18} /></span>
-          {!leftCollapsed && <span className={styles.navLabel}>Logout</span>}
-        </button>
-      </div>
-
       {/* ── Collapse Button ── */}
       <button 
         className={styles.collapseBtn} 
@@ -144,7 +125,7 @@ const Sidebar = () => {
         aria-label={leftCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         title={leftCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
       >
-{leftCollapsed ? <MdChevronRight size={16} /> : <MdChevronLeft size={16} />}
+        {leftCollapsed ? <MdChevronRight size={20} /> : <MdChevronLeft size={20} />}
       </button>
     </aside>
   );

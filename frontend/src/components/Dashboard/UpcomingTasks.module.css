@@ -1,74 +1,59 @@
 /* ==========================================================================
-   UpcomingTasks.module.css
+   UpcomingTasks.module.css - Today's Deadlines Card
    ========================================================================== */
 
 .card {
   background: #ffffff;
-  border-radius: 20px;
-  padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid #e5e7eb;
-  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .cardHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.cardTitle {
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: #1E1B35;
-}
-
-.addBtn {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: rgba(99, 102, 241, 0.1);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6366f1;
-  font-size: 18px;
-  transition: all 0.15s;
-}
-
-.addBtn:hover {
-  background: rgba(99, 102, 241, 0.2);
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-.info {
-  flex: 1;
-  min-width: 0;
+.cardTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.title {
+.totalBadge {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #1E1B35;
+  background: #f3f4f6;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.deadlinesContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.deadlineItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.deadlineTitle {
   font-size: 0.8125rem;
   font-weight: 600;
   color: #1E1B35;
@@ -77,17 +62,113 @@
   text-overflow: ellipsis;
 }
 
-.due {
+.deadlineProject {
   font-size: 0.7rem;
   color: #6b7280;
-  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.priorityTag {
-  font-size: 0.62rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 999px;
-  text-transform: capitalize;
-  flex-shrink: 0;
+.navBtn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.navBtn:hover {
+  background: #f3f4f6;
+  color: #1E1B35;
+}
+
+.navBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Quick Actions Parent Card ── */
+.quickActionsCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.quickActionsHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.quickActionsTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quickActionsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.quickActionBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 12px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.quickActionBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--btn-color);
+}
+
+.quickActionIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn-bg, rgba(99, 102, 241, 0.1));
+}
+
+.quickActionIcon svg {
+  color: var(--btn-color, #6366f1);
+  font-size: 18px;
+}
+
+.quickActionLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1080px) {
+  .quickActionsGrid {
+    grid-template-columns: 1fr;
+  }
 }

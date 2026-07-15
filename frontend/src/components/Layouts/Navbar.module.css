@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   left: 240px;
-  right: 280px;
+  right: 0;
   height: 64px;
   background: rgba(247, 248, 252, 0.92);
   backdrop-filter: blur(12px);
@@ -67,8 +67,8 @@
 }
 
 .searchInput:focus {
-  border-color: #D9FF4F;
-  box-shadow: 0 0 0 3px rgba(217, 255, 79, 0.2);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
   background: #fff;
 }
 
@@ -152,6 +152,7 @@
   border-radius: 12px;
   cursor: pointer;
   transition: background 0.2s ease;
+  position: relative;
 }
 
 .profile:hover {
@@ -162,7 +163,7 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: linear-gradient(135deg,  #1e1b35, #5356c5db);
+  background: #6366f1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -190,11 +191,55 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: rgb(202, 238, 74);
-  color: #D9FF4F;
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
   padding: 1px 6px;
   border-radius: 999px;
   width: fit-content;
+}
+
+/* ── Profile Dropdown ── */
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background: #f3f4f6;
+  color: #1E1B35;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 4px 0;
 }
 
 /* ── Responsive ── */
@@ -204,16 +249,9 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .navbar {
-    right: 0;
-  }
-}
-
 @media (max-width: 768px) {
   .navbar {
     left: 0;
-    right: 0;
     padding: 0 16px;
   }
   .pageTitle {

@@ -23,7 +23,7 @@ import RecentProjects    from '../../components/Dashboard/RecentProjects';
 import RecentTasks       from '../../components/Dashboard/RecentTasks';
 import QuickActions      from '../../components/Dashboard/QuickActions';
 import ActivityTimeline  from '../../components/Dashboard/ActivityTimeline';
-import UpcomingTasks     from '../../components/Dashboard/UpcomingTasks';
+import TodaysDeadlines   from '../../components/Dashboard/UpcomingTasks';
 import ProjectFormModal  from '../../components/Projects/ProjectFormModal';
 import TaskFormModal     from '../../components/Tasks/TaskFormModal';
 
@@ -158,6 +158,29 @@ const DashboardPage = () => {
     <DashboardLayout pageTitle="Dashboard">
       <div className={styles.page}>
 
+        {/* ── Top Two-Column Layout ── */}
+        <div className={styles.topRow}>
+          {/* Left Column: Today's Deadlines + Stats */}
+          <div className={styles.leftCol}>
+            <TodaysDeadlines tasks={todaysDeadlines} />
+            <DashboardCards
+              projectStats={projectStats}
+              taskStats={taskStats}
+              users={users}
+              projectStatsLoading={projectStatsLoading}
+              taskStatsLoading={taskStatsLoading}
+            />
+          </div>
+
+          {/* Right Column: Quick Actions */}
+          <div className={styles.rightCol}>
+            <QuickActions
+              onNewProject={openProjectModal}
+              onNewTask={openTaskModal}
+            />
+          </div>
+        </div>
+
         {/* ── Notification Summary Card ── */}
         {notifSummary && notifSummary.unread > 0 && (
           <div className={styles.notifBanner}>
@@ -197,41 +220,6 @@ const DashboardPage = () => {
           </div>
         )}
 
-        {/* ── Today's Deadlines Banner ── */}
-        {todaysDeadlines.length > 0 && (
-          <div className={styles.deadlineBanner}>
-            <div>
-              <div className={styles.deadlineBannerTitle}>⏰ Today's Deadlines</div>
-              <div className={styles.deadlineBannerSub}>{todaysDeadlines.length} items due today</div>
-            </div>
-            <div className={styles.deadlines}>
-              {todaysDeadlines.slice(0, 4).map((t) => (
-                <div key={t.id} className={styles.deadlineItem}>
-                  {t.priority === 'Critical' && <span className={styles.urgentDot} />}
-                  <div className={styles.deadlineTitle}>{t.title}</div>
-                  <div className={styles.deadlineProject}>{t.project_title || 'No Project'}</div>
-                  <div className={styles.deadlineTime}>{t.status}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── Quick Actions ── */}
-        <QuickActions
-          onNewProject={openProjectModal}
-          onNewTask={openTaskModal}
-        />
-
-        {/* ── Stat Cards ── */}
-        <DashboardCards
-          projectStats={projectStats}
-          taskStats={taskStats}
-          users={users}
-          projectStatsLoading={projectStatsLoading}
-          taskStatsLoading={taskStatsLoading}
-        />
-
         {/* ── Charts ── */}
         <DashboardCharts
           taskStats={taskStats}
@@ -247,7 +235,7 @@ const DashboardPage = () => {
         <div className={styles.bottomRow}>
           <RecentTasks tasks={recentTasks} />
           <div>
-            <UpcomingTasks tasks={upcomingTasks} />
+            <TodaysDeadlines tasks={upcomingTasks} />
             <ActivityTimeline
               notifications={notifications}
               onMarkRead={handleMarkNotifRead}

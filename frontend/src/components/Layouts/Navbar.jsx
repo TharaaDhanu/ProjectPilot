@@ -3,17 +3,19 @@
  * --------------------------------
  * Fixed top navigation bar.
  * - Search bar
- * - Settings + Notifications icons (with unread badge & drawer)
- * - User avatar, name, role badge
+ * - Notifications icon (with unread badge & drawer)
+ * - User avatar, name, role badge with dropdown
  */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   MdSearch,
   MdSettings,
   MdNotifications,
   MdKeyboardArrowDown,
+  MdPerson,
+  MdLogout,
 } from 'react-icons/md';
 
 import { useAuth } from '../../hooks/useAuth';
@@ -22,14 +24,18 @@ import NotificationDrawer from '../Notifications/NotificationDrawer';
 import styles from './Navbar.module.css';
 
 const Navbar = ({ pageTitle = 'Dashboard' }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   // ── Notification state ──────────────────────────────────────────────────
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [notifLoading, setNotifLoading] = useState(false);
+
+  // ── Profile dropdown state ──────────────────────────────────────────────
+  const [profileOpen, setProfileOpen] = useState(false);
 
   const fetchNotifs = useCallback(async () => {
     try {
@@ -58,6 +64,17 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
     const interval = setInterval(fetchUnreadCount, 30000);
     return () => clearInterval(interval);
   }, [fetchUnreadCount]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleNotifToggle = () => {
     if (!notifOpen) {
@@ -104,6 +121,12 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
     navigate('/notifications');
   };
 
+  const handleLogout = () => {
+    setProfileOpen(false);
+    logout();
+    navigate('/login', { replace: true });
+  };
+
   const initials = user
     ? (user.first_name?.[0] || user.username?.[0] || 'U').toUpperCase() +
       (user.last_name?.[0] || user.username?.[1] || '').toUpperCase()
@@ -134,10 +157,6 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
 
       {/* Actions */}
       <div className={styles.actions}>
-        <button id="navbar-settings-btn" className={styles.iconBtn} aria-label="Settings">
-          <MdSettings size={18} />
-        </button>
-
         {/* Notification dropdown wrapper */}
         <div className={styles.notifWrapper}>
           <button
@@ -167,10 +186,8 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
           )}
         </div>
 
-        <div className={styles.divider} />
-
-        {/* Profile */}
-        <div id="navbar-profile" className={styles.profile}>
+        {/* Profile with dropdown */}
+        <div className={styles.profile} onClick={() => setProfileOpen(!profileOpen)}>
           <div className={styles.avatar}>{initials}</div>
           <div className={styles.profileInfo}>
             <span className={styles.profileName}>{displayName}</span>
@@ -178,8 +195,26 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
           </div>
           <MdKeyboardArrowDown size={16} style={{ color: '#9ca3af', marginLeft: 2 }} />
         </div>
-      </div>
 
+        {/* Profile Dropdown */}
+        {profileOpen && (
+          <div className={styles.profileDropdown} ref={dropdownRef}>
+            <button className={styles.dropdownItem} onClick={() => { setProfileOpen(false); navigate('/profile'); }}>
+              <MdPerson size={16} />
+              My Profile
+            </button>
+            <button className={styles.dropdownItem} onClick={() => { setProfileOpen(false); navigate('/settings'); }}>
+              <MdSettings size={16} />
+              Settings
+            </button>
+            <div className={styles.dropdownDivider} />
+            <button className={styles.dropdownItem} onClick={handleLogout}>
+              <MdLogout size={16} />
+              Logout
+            </button>
+          </div>
+        )}
+      </div>
     </header>
   );
 };

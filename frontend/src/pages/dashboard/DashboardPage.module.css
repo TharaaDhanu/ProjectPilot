@@ -11,6 +11,25 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Top Two-Column Layout ── */
+.topRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rightCol {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ── Notification Banner ── */
 .notifBanner {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
@@ -150,80 +169,6 @@
   }
 }
 
-/* ── Today's Deadlines Banner ── */
-.deadlineBanner {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.deadlineBannerTitle {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #1E1B35;
-  margin-bottom: 2px;
-}
-
-.deadlineBannerSub {
-  font-size: 0.75rem;
-  color: #6b7280;
-}
-
-.deadlines {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  flex: 1;
-}
-
-.deadlineItem {
-  background: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 10px 14px;
-  cursor: default;
-  transition: background 0.2s;
-}
-
-.deadlineItem:hover {
-  background: #f3f4f6;
-}
-
-.deadlineTitle {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #1E1B35;
-}
-
-.deadlineProject {
-  font-size: 0.68rem;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-.deadlineTime {
-  font-size: 0.68rem;
-  color: #6366f1;
-  margin-top: 4px;
-  font-weight: 600;
-}
-
-.urgentDot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
-  margin-right: 4px;
-  vertical-align: middle;
-}
-
 /* ── Upcoming Events (Calendar integration) ── */
 .eventsCard {
   background: #ffffff;
@@ -283,4 +228,11 @@
   padding: 2px 8px;
   border-radius: 20px;
   white-space: nowrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1080px) {
+  .topRow {
+    grid-template-columns: 1fr;
+  }
 }

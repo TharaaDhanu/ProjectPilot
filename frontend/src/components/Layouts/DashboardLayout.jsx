@@ -4,18 +4,17 @@
  * Three-column layout shell for all dashboard pages.
  * - Left: <Sidebar /> (fixed, collapsible)
  * - Center: <Navbar /> + scrollable content
- * - Right: <RightSidebar /> (fixed, collapsible)
+ * - Right sidebar removed
  */
 
 import React from 'react';
-import Sidebar      from './Sidebar';
-import Navbar       from './Navbar';
-import RightSidebar from './RightSidebar';
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 import { useSidebar } from '../../context/SidebarContext';
-import styles       from './DashboardLayout.module.css';
+import styles from './DashboardLayout.module.css';
 
 const DashboardLayout = ({ children, pageTitle }) => {
-  const { leftCollapsed, rightCollapsed } = useSidebar();
+  const { leftCollapsed } = useSidebar();
 
   return (
     <div className={styles.shell}>
@@ -23,15 +22,12 @@ const DashboardLayout = ({ children, pageTitle }) => {
       <Sidebar />
 
       {/* Center scrollable column */}
-      <main className={`${styles.main} ${leftCollapsed ? styles.leftCollapsed : ''} ${rightCollapsed ? styles.rightCollapsed : ''}`}>
+      <main className={`${styles.main} ${leftCollapsed ? styles.leftCollapsed : ''}`}>
         <Navbar pageTitle={pageTitle} />
         <div className={styles.content}>
           {children}
         </div>
       </main>
-
-      {/* Right fixed utility sidebar */}
-      <RightSidebar />
     </div>
   );
 };
