@@ -17,6 +17,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: 24px;
+  align-items: start;
 }
 
 .leftCol {
@@ -28,6 +29,7 @@
 .rightCol {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 /* ── Notification Banner ── */
@@ -234,5 +236,8 @@
 @media (max-width: 1080px) {
   .topRow {
     grid-template-columns: 1fr;
+  }
+  .rightCol {
+    height: auto;
   }
 }
