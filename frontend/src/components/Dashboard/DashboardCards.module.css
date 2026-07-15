@@ -6,13 +6,12 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin-bottom: 24px;
 }
 
 .card {
   background: #ffffff;
   border-radius: 16px;
-  padding: 16px 12px;
+  padding: 14px 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid #e5e7eb;
   cursor: default;
@@ -20,7 +19,6 @@
               box-shadow 0.22s ease;
   position: relative;
   overflow: hidden;
-  text-align: center;
 }
 
 .card::before {
@@ -43,41 +41,40 @@
   opacity: 1;
 }
 
-/* ── Header row ── */
+/* ── Header row with icon and value ── */
 .header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
 .iconWrapper {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--card-bg, rgba(99, 102, 241, 0.1));
+  flex-shrink: 0;
 }
 
 .iconWrapper svg {
   color: var(--card-color, #6366f1);
-  font-size: 18px;
+  font-size: 16px;
 }
 
-/* ── Body ── */
 .value {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #1E1B35;
   line-height: 1;
-  margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
 
 .label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: #6b7280;
   font-weight: 500;
 }

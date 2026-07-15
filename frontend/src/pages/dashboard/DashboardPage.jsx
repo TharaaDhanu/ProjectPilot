@@ -24,6 +24,7 @@ import RecentTasks       from '../../components/Dashboard/RecentTasks';
 import QuickActions      from '../../components/Dashboard/QuickActions';
 import ActivityTimeline  from '../../components/Dashboard/ActivityTimeline';
 import TodaysDeadlines   from '../../components/Dashboard/UpcomingTasks';
+import UpcomingTasksList from '../../components/Dashboard/UpcomingTasksList';
 import ProjectFormModal  from '../../components/Projects/ProjectFormModal';
 import TaskFormModal     from '../../components/Tasks/TaskFormModal';
 
@@ -235,7 +236,7 @@ const DashboardPage = () => {
         <div className={styles.bottomRow}>
           <RecentTasks tasks={recentTasks} />
           <div>
-            <TodaysDeadlines tasks={upcomingTasks} />
+            <UpcomingTasksList tasks={upcomingTasks} />
             <ActivityTimeline
               notifications={notifications}
               onMarkRead={handleMarkNotifRead}

@@ -31,6 +31,7 @@ const TodaysDeadlines = ({ tasks = [] }) => {
     <div className={styles.card}>
       <div className={styles.cardHeader}>
         <span className={styles.cardTitle}>Today's Deadlines</span>
+        <div className={styles.divider} />
         <span className={styles.totalBadge}>{tasks.length}</span>
       </div>
 
@@ -45,10 +46,10 @@ const TodaysDeadlines = ({ tasks = [] }) => {
           </button>
         )}
 
-        <div className={styles.deadlineItem}>
+        <div className={styles.deadlineMiniCard}>
           <div className={styles.deadlineTitle}>{currentTask.title}</div>
-          <div className={styles.deadlineProject}>
-            {currentTask.project_title || 'No Project'}
+          <div className={styles.deadlineStatus}>
+            {currentTask.status || 'In Progress'}
           </div>
         </div>
 
