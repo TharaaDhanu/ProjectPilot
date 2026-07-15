@@ -9,6 +9,7 @@
  * - Activity timeline
  * - Upcoming deadlines
  * - Quick Actions
+ * - Collapsible with floating button
  */
 
 import React, { useState, useEffect } from 'react';
@@ -17,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdChevronLeft, MdChevronRight, MdVideoCall, MdNotificationsActive, MdArrowForward } from 'react-icons/md';
 import { LuUsers, LuUserCheck, LuUserMinus } from 'react-icons/lu';
 
+import { useSidebar } from '../../context/SidebarContext';
 import { upcomingMeetings } from '../../data/mockData';
 import teamService from '../../services/teamService';
 import notificationService from '../../services/notificationService';
@@ -302,6 +304,23 @@ const UpcomingDeadlines = () => {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 const RightSidebar = () => {
+  const { rightCollapsed, toggleRight } = useSidebar();
+
+  if (rightCollapsed) {
+    return (
+      <aside className={`${styles.sidebar} ${styles.collapsed}`}>
+        <button 
+          className={styles.collapseBtn} 
+          onClick={toggleRight}
+          aria-label="Expand sidebar"
+          title="Expand sidebar"
+        >
+          <MdChevronRight size={16} />
+        </button>
+      </aside>
+    );
+  }
+
   return (
     <aside className={styles.sidebar}>
       <div className={styles.section}>
@@ -330,6 +349,16 @@ const RightSidebar = () => {
           </div>
         ))}
       </div>
+
+      {/* ── Collapse Button ── */}
+      <button 
+        className={styles.collapseBtn} 
+        onClick={toggleRight}
+        aria-label="Collapse sidebar"
+        title="Collapse sidebar"
+      >
+        <MdChevronLeft size={16} />
+      </button>
     </aside>
   );
 };

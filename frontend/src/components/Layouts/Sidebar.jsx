@@ -4,7 +4,7 @@
  * Fixed left navigation sidebar.
  * - Dark navy #1E1B35 background
  * - Lime green #D9FF4F active state
- * - Responsive: collapses to icon-only at ≤1024px
+ * - Collapsible with icon-only mode
  * - Dynamic notification badge count via API
  */
 
@@ -21,9 +21,12 @@ import {
   MdSettings,
   MdLogout,
   MdRocketLaunch,
+  MdChevronLeft,
+  MdChevronRight,
 } from 'react-icons/md';
 
 import { useAuth } from '../../hooks/useAuth';
+import { useSidebar } from '../../context/SidebarContext';
 import notificationService from '../../services/notificationService';
 import styles from './Sidebar.module.css';
 
@@ -41,6 +44,7 @@ const navItems = [
 const Sidebar = () => {
   const { logout } = useAuth();
   const navigate   = useNavigate();
+  const { leftCollapsed, toggleLeft } = useSidebar();
   const [notifCount, setNotifCount] = useState(0);
 
   useEffect(() => {
@@ -63,23 +67,25 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className={styles.sidebar}>
+    <aside className={`${styles.sidebar} ${leftCollapsed ? styles.collapsed : ''}`}>
       {/* ── Logo ── */}
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
           <MdRocketLaunch size={18} color="#1E1B35" />
         </div>
-        <div>
-          <div className={styles.logoText}>ProjectPilot</div>
-          <div className={styles.logoSub}>Pro</div>
-        </div>
+        {!leftCollapsed && (
+          <div>
+            <div className={styles.logoText}>ProjectPilot</div>
+            <div className={styles.logoSub}>Pro</div>
+          </div>
+        )}
       </div>
 
       {/* ── Navigation ── */}
       <nav className={styles.nav}>
         <div className={styles.section}>
-          <div className={styles.sectionLabel}>Main Menu</div>
-          {navItems.slice(0, 5).map(({ label, icon: Icon, path, badge, badgeKey }) => (
+          {!leftCollapsed && <div className={styles.sectionLabel}>Main Menu</div>}
+          {navItems.slice(0, 5).map(({ label, icon: Icon, path, badgeKey }) => (
             <NavLink
               key={path}
               to={path}
@@ -87,10 +93,10 @@ const Sidebar = () => {
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }
+              title={leftCollapsed ? label : undefined}
             >
               <span className={styles.navIcon}><Icon size={18} /></span>
-              <span className={styles.navLabel}>{label}</span>
-              {badge && <span className={styles.badge}>{badge}</span>}
+              {!leftCollapsed && <span className={styles.navLabel}>{label}</span>}
               {badgeKey === 'notif' && notifCount > 0 && (
                 <span className={styles.badge}>{notifCount > 99 ? '99+' : notifCount}</span>
               )}
@@ -99,18 +105,18 @@ const Sidebar = () => {
         </div>
 
         <div className={styles.section}>
-          <div className={styles.sectionLabel}>Workspace</div>
-          {navItems.slice(5).map(({ label, icon: Icon, path, badge, badgeKey }) => (
+          {!leftCollapsed && <div className={styles.sectionLabel}>Workspace</div>}
+          {navItems.slice(5).map(({ label, icon: Icon, path, badgeKey }) => (
             <NavLink
               key={path}
               to={path}
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }
+              title={leftCollapsed ? label : undefined}
             >
               <span className={styles.navIcon}><Icon size={18} /></span>
-              <span className={styles.navLabel}>{label}</span>
-              {badge && <span className={styles.badge}>{badge}</span>}
+              {!leftCollapsed && <span className={styles.navLabel}>{label}</span>}
               {badgeKey === 'notif' && notifCount > 0 && (
                 <span className={styles.badge}>{notifCount > 99 ? '99+' : notifCount}</span>
               )}
@@ -121,11 +127,25 @@ const Sidebar = () => {
 
       {/* ── Logout ── */}
       <div className={styles.bottom}>
-        <button className={styles.logoutBtn} onClick={handleLogout}>
+        <button 
+          className={styles.logoutBtn} 
+          onClick={handleLogout}
+          title={leftCollapsed ? 'Logout' : undefined}
+        >
           <span className={styles.navIcon}><MdLogout size={18} /></span>
-          <span className={styles.navLabel}>Logout</span>
+          {!leftCollapsed && <span className={styles.navLabel}>Logout</span>}
         </button>
       </div>
+
+      {/* ── Collapse Button ── */}
+      <button 
+        className={styles.collapseBtn} 
+        onClick={toggleLeft}
+        aria-label={leftCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        title={leftCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      >
+{leftCollapsed ? <MdChevronRight size={16} /> : <MdChevronLeft size={16} />}
+      </button>
     </aside>
   );
 };
