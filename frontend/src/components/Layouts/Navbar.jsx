@@ -152,17 +152,19 @@ const Navbar = ({ pageTitle = 'Dashboard' }) => {
             )}
           </button>
 
-          <NotificationDrawer
-            open={notifOpen}
-            onClose={() => setNotifOpen(false)}
-            notifications={notifications}
-            unreadCount={unreadCount}
-            onMarkRead={handleMarkRead}
-            onMarkAllRead={handleMarkAllRead}
-            onDelete={handleDelete}
-            loading={notifLoading}
-            onViewAll={handleViewAll}
-          />
+          {notifOpen && (
+            <NotificationDrawer
+              open={notifOpen}
+              onClose={() => setNotifOpen(false)}
+              notifications={notifications}
+              unreadCount={unreadCount}
+              onMarkRead={handleMarkRead}
+              onMarkAllRead={handleMarkAllRead}
+              onDelete={handleDelete}
+              loading={notifLoading}
+              onViewAll={handleViewAll}
+            />
+          )}
         </div>
 
         <div className={styles.divider} />

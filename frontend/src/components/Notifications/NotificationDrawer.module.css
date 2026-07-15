@@ -12,18 +12,16 @@
   background: #FFFFFF;
   border-radius: 18px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
-  animation: slideDownFadeIn 250ms ease-out;
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideDownFadeIn 250ms ease-out forwards;
   overflow: hidden;
 }
 
 @keyframes slideDownFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
   to {
     opacity: 1;
     transform: translateY(0);

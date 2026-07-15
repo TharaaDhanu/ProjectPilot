@@ -26,18 +26,23 @@ const NotificationDrawer = ({
   loading,
   onViewAll,
 }) => {
+  // Only render when open is true
+  if (!open) {
+    return null;
+  }
+
   const drawerRef = useRef(null);
 
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && open) {
+      if (e.key === 'Escape') {
         onClose?.();
       }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [open, onClose]);
+  }, [onClose]);
 
   // Close on click outside
   useEffect(() => {
@@ -46,17 +51,9 @@ const NotificationDrawer = ({
         onClose?.();
       }
     };
-    if (open) {
-      // Use setTimeout to avoid the current click event
-      const timer = setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-      }, 0);
-      return () => {
-        clearTimeout(timer);
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
-  }, [open, onClose]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [onClose]);
 
   // Defensive: notifications may be an object { notifications: [...] } or an array
   const safeNotifications = Array.isArray(notifications)
@@ -69,7 +66,7 @@ const NotificationDrawer = ({
   return (
     <div
       ref={drawerRef}
-      className={`${styles.dropdown} ${open ? styles.open : ''}`}
+      className={styles.dropdown}
     >
       {/* Header */}
       <div className={styles.header}>
