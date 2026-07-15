@@ -13,7 +13,7 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { MdWbSunny, MdAdd, MdAddTask, MdNotifications } from 'react-icons/md';
+import { MdNotifications } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
 import DashboardLayout   from '../../components/Layouts/DashboardLayout';
@@ -36,17 +36,8 @@ import notificationService from '../../services/notificationService';
 import { toast }         from 'react-toastify';
 import styles            from './DashboardPage.module.css';
 
-// ─── Greeting helper ──────────────────────────────────────────────────────────
-const getGreeting = () => {
-  const h = dayjs().hour();
-  if (h < 12) return 'Good morning';
-  if (h < 17) return 'Good afternoon';
-  return 'Good evening';
-};
-
 const DashboardPage = () => {
   const { user } = useAuth();
-  const firstName = user?.first_name || user?.name?.split(' ')[0] || 'there';
 
   // ── Data hooks ────────────────────────────────────────────────────────
   const {
@@ -166,20 +157,6 @@ const DashboardPage = () => {
   return (
     <DashboardLayout pageTitle="Dashboard">
       <div className={styles.page}>
-
-        {/* ── Greeting ── */}
-        <div className={styles.greeting}>
-          <h2 className={styles.greetingTitle}>
-            {getGreeting()}, <span>{firstName}</span> 👋
-          </h2>
-          <p className={styles.greetingSubtitle}>
-            Here's what's happening with your projects today.
-          </p>
-          <div className={styles.greetingMeta}>
-            <MdWbSunny size={14} />
-            {dayjs().format('dddd, MMMM D, YYYY')}
-          </div>
-        </div>
 
         {/* ── Notification Summary Card ── */}
         {notifSummary && notifSummary.unread > 0 && (

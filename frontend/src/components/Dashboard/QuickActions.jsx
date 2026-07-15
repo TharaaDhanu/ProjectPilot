@@ -10,56 +10,56 @@ import { Link } from 'react-router-dom';
 import {
   MdAddCircle,
   MdAddTask,
-  MdBarChart,
+  MdBarChart, 
   MdCalendarMonth,
 } from 'react-icons/md';
 import styles from './QuickActions.module.css';
 
 const QuickActions = ({ onNewProject, onNewTask }) => {
-  const actions = [
-    {
-      id: 'qa-new-project',
-      label: 'New Project',
-      icon: MdAddCircle,
-      color: '#6366f1',
-      bg: 'rgba(99,102,241,0.1)',
-      onClick: onNewProject,
-    },
-    {
-      id: 'qa-new-task',
-      label: 'New Task',
-      icon: MdAddTask,
-      color: '#22c55e',
-      bg: 'rgba(34,197,94,0.1)',
-      onClick: onNewTask,
-    },
-    {
-      id: 'qa-reports',
-      label: 'Reports',
-      icon: MdBarChart,
-      color: '#ec4899',
-      bg: 'rgba(236,72,153,0.1)',
-      href: '/reports',
-    },
-    {
-      id: 'qa-calendar',
-      label: 'Calendar',
-      icon: MdCalendarMonth,
-      color: '#f59e0b',
-      bg: 'rgba(245,158,11,0.1)',
-      href: '/calendar',
-    },
-  ];
+const actions = [
+  {
+    id: 'qa-new-project',
+    label: 'New Project',
+    icon: MdAddCircle,
+    color: '#6366f1',
+    bgColor: 'rgba(99,102,241,0.1)',
+    onClick: onNewProject,
+  },
+  {
+    id: 'qa-new-task',
+    label: 'New Task',
+    icon: MdAddTask,
+    color: '#8b5cf6',
+    bgColor: 'rgba(139,92,246,0.1)',
+    onClick: onNewTask,
+  },
+  {
+    id: 'qa-reports',
+    label: 'Reports',
+    icon: MdBarChart,
+    color: '#22c55e',
+    bgColor: 'rgba(34,197,94,0.1)',
+    href: '/reports',
+  },
+  {
+    id: 'qa-calendar',
+    label: 'Calendar',
+    icon: MdCalendarMonth,
+    color: '#ec4899',
+    bgColor: 'rgba(236,72,153,0.1)',
+    href: '/calendar',
+  },
+];
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Quick Actions</div>
       <div className={styles.grid}>
-        {actions.map(({ id, label, icon: Icon, color, bg, onClick, href }) => {
+        {actions.map(({ id, label, icon: Icon, onClick, href, color, bgColor }) => {
           const inner = (
             <>
-              <div className={styles.iconBox}>
-                <Icon size={22} />
+              <div className={styles.iconBox} style={{ background: bgColor }}>
+                <Icon size={22} style={{ color }} />
               </div>
               <span className={styles.label}>{label}</span>
             </>
@@ -72,7 +72,6 @@ const QuickActions = ({ onNewProject, onNewTask }) => {
                 id={id}
                 to={href}
                 className={styles.btn}
-                style={{ '--btn-color': color, '--btn-bg': bg }}
                 aria-label={label}
               >
                 {inner}
@@ -85,7 +84,6 @@ const QuickActions = ({ onNewProject, onNewTask }) => {
               key={id}
               id={id}
               className={styles.btn}
-              style={{ '--btn-color': color, '--btn-bg': bg }}
               aria-label={label}
               onClick={onClick}
             >

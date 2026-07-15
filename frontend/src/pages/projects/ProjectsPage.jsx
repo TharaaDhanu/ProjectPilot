@@ -154,16 +154,10 @@ const ProjectsPage = () => {
 
         {/* ── Page header ── */}
         <div className={styles.pageHeader}>
-          <div>
-            <div className={styles.breadcrumb}>
-              <Link to="/"><MdHome size={13} /> Dashboard</Link>
-              <MdChevronRight size={14} />
-              Projects
-            </div>
-            <h1 className={styles.pageTitle}>Projects</h1>
-            <p className={styles.pageSubtitle}>
-              Manage and track all your projects in one place.
-            </p>
+          <div className={styles.breadcrumb}>
+            <Link to="/"><MdHome size={13} /> Dashboard</Link>
+            <MdChevronRight size={14} />
+            Projects
           </div>
         </div>
 

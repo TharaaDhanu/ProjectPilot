@@ -11,7 +11,6 @@ import {
   MdFolder, MdAutoGraph, MdCheckCircle, MdWarning,
   MdAssignment, MdAccessTime, MdCheckBox, MdGroup,
 } from 'react-icons/md';
-import { HiTrendingUp, HiTrendingDown } from 'react-icons/hi';
 import styles from './DashboardCards.module.css';
 
 const CARDS = [
@@ -35,8 +34,8 @@ const CARDS = [
     id: 'completed-projects',
     label: 'Completed Projects',
     icon: MdCheckCircle,
-    color: '#D9FF4F',
-    bgColor: 'rgba(217,255,79,0.12)',
+    color: '#22c55e',
+    bgColor: 'rgba(34,197,94,0.1)',
     getValue: (ps) => ps?.completed ?? 0,
   },
   {
@@ -85,11 +84,11 @@ const StatCard = ({ id, label, value, icon: Icon, color, bgColor, loading }) => 
   <div
     id={`stat-card-${id}`}
     className={styles.card}
-    style={{ '--card-color': color, '--card-bg': bgColor }}
+    style={{ '--card-color': color }}
   >
     <div className={styles.header}>
-      <div className={styles.iconWrapper}>
-        <Icon size={22} />
+      <div className={styles.iconWrapper} style={{ background: bgColor }}>
+        <Icon size={22} style={{ color }} />
       </div>
     </div>
     {loading ? (

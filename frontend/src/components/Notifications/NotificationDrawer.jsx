@@ -26,11 +26,6 @@ const NotificationDrawer = ({
   loading,
   onViewAll,
 }) => {
-  // Only render when open is true
-  if (!open) {
-    return null;
-  }
-
   const drawerRef = useRef(null);
 
   // Close on Escape key
@@ -54,6 +49,11 @@ const NotificationDrawer = ({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose]);
+
+  // Only render when open is true
+  if (!open) {
+    return null;
+  }
 
   // Defensive: notifications may be an object { notifications: [...] } or an array
   const safeNotifications = Array.isArray(notifications)

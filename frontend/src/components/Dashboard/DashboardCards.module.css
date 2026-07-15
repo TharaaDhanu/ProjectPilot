@@ -13,8 +13,8 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
-  border: 1px solid rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
   cursor: default;
   transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
               box-shadow 0.22s ease;
@@ -35,7 +35,7 @@
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 28px rgba(30, 27, 53, 0.12);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
 }
 
 .card:hover::before {
@@ -57,11 +57,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--card-bg);
+  background: rgba(99, 102, 241, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .iconWrapper svg {
-  color: var(--card-color);
+  color: #6366f1;
   font-size: 20px;
 }
 
@@ -89,7 +90,7 @@
 /* ── Body ── */
 .value {
   font-size: 2rem;
-  font-weight: 800;
+  font-weight: 700;
   color: #1E1B35;
   line-height: 1;
   margin-bottom: 4px;
@@ -98,13 +99,13 @@
 
 .label {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: #6b7280;
   font-weight: 500;
 }
 
 .trendLabel {
   font-size: 0.68rem;
-  color: #c4c9d4;
+  color: #9ca3af;
   margin-top: 8px;
 }
 

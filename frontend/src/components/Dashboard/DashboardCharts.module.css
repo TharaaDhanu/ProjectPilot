@@ -13,13 +13,13 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
-  border: 1px solid rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
   transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-  box-shadow: 0 6px 24px rgba(30, 27, 53, 0.1);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 }
 
 .cardHeader {
@@ -38,8 +38,8 @@
 .cardBadge {
   font-size: 0.65rem;
   font-weight: 600;
-  background: rgba(217, 255, 79, 0.25);
-  color: #4a5200;
+  background: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
   padding: 2px 8px;
   border-radius: 999px;
 }

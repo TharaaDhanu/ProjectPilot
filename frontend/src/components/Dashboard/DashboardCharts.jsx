@@ -3,7 +3,7 @@
  * ------------------------------------------
  * Four Recharts components — now driven by live backend data:
  * 1. Weekly Productivity  (tasks by day of week from recentTasks)
- * 2. Project Progress     (projects by status — bar)
+ * 2. Project Status     (projects by status — bar)
  * 3. Task Status          (PieChart from taskStats)
  * 4. Team Workload        (horizontal bar by assignee)
  */
@@ -23,15 +23,15 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: '#1E1B35',
-      border: 'none',
+      background: '#ffffff',
+      border: '1px solid #e5e7eb',
       borderRadius: 10,
       padding: '8px 14px',
-      boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+      boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
     }}>
-      {label && <div style={{ color: '#9ca3af', fontSize: 11, marginBottom: 4 }}>{label}</div>}
+      {label && <div style={{ color: '#6b7280', fontSize: 11, marginBottom: 4 }}>{label}</div>}
       {payload.map((p, i) => (
-        <div key={i} style={{ color: p.color || '#fff', fontSize: 12, fontWeight: 600 }}>
+        <div key={i} style={{ color: p.color || '#1E1B35', fontSize: 12, fontWeight: 600 }}>
           {p.name}: {p.value}
         </div>
       ))}
@@ -63,10 +63,10 @@ const WeeklyProductivity = ({ recentTasks = [] }) => {
       <div className={styles.chartWrapper}>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={data} barGap={4}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,27,53,0.06)" vertical={false} />
-            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(30,27,53,0.04)' }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" vertical={false} />
+            <XAxis dataKey="day" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="tasks" name="Tasks" fill="#6366f1" radius={[6, 6, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
@@ -86,7 +86,7 @@ const ProjectStatusChart = ({ projectStats }) => {
       { name: 'Planning',    value: projectStats.planning  || 0, fill: '#f59e0b' },
       { name: 'Active',      value: projectStats.active    || 0, fill: '#6366f1' },
       { name: 'On Hold',     value: projectStats.on_hold   || 0, fill: '#ef4444' },
-      { name: 'Completed',   value: projectStats.completed || 0, fill: '#D9FF4F' },
+      { name: 'Completed',   value: projectStats.completed || 0, fill: '#22c55e' },
       { name: 'Archived',    value: projectStats.archived  || 0, fill: '#9ca3af' },
     ].filter((d) => d.value > 0);
   }, [projectStats]);
@@ -100,10 +100,10 @@ const ProjectStatusChart = ({ projectStats }) => {
       <div className={styles.chartWrapper}>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,27,53,0.06)" vertical={false} />
-            <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(30,27,53,0.04)' }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" vertical={false} />
+            <XAxis dataKey="name" tick={{ fontSize: 10, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
             <Bar dataKey="value" name="Projects" radius={[6, 6, 0, 0]}>
               {data.map((entry, i) => (
                 <Cell key={i} fill={entry.fill} />
@@ -125,7 +125,7 @@ const TaskStatusChart = ({ taskStats }) => {
       'In Progress': '#6366f1',
       'In Review':   '#8b5cf6',
       'Blocked':     '#ef4444',
-      'Completed':   '#D9FF4F',
+      'Completed':   '#22c55e',
       'Cancelled':   '#9ca3af',
       'Archived':    '#d1d5db',
     };
@@ -204,16 +204,16 @@ const TeamWorkload = ({ recentTasks = [] }) => {
       </div>
       <div className={styles.chartWrapper}>
         {data.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 0', color: '#9ca3af', fontSize: '0.8125rem' }}>
+          <div style={{ textAlign: 'center', padding: '40px 0', color: '#6b7280', fontSize: '0.8125rem' }}>
             No assigned tasks yet
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={data} layout="vertical" margin={{ left: 8 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(30,27,53,0.06)" horizontal={false} />
-              <XAxis type="number" tick={{ fontSize: 11, fill: '#9ca3af' }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" horizontal={false} />
+              <XAxis type="number" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} />
               <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: '#6b7280' }} axisLine={false} tickLine={false} width={70} />
-              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(30,27,53,0.04)' }} />
+              <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.04)' }} />
               <Bar dataKey="tasks" name="Tasks" radius={[0, 6, 6, 0]}>
                 {data.map((entry, i) => (
                   <Cell key={i} fill={entry.fill} />

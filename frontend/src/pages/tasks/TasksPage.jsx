@@ -157,16 +157,10 @@ const TasksPage = () => {
 
         {/* ── Page Header ── */}
         <div className={styles.pageHeader}>
-          <div>
-            <div className={styles.breadcrumb}>
-              <Link to="/"><MdHome size={13} /> Dashboard</Link>
-              <MdChevronRight size={14} />
-              Tasks
-            </div>
-            <h1 className={styles.pageTitle}>Tasks</h1>
-            <p className={styles.pageSubtitle}>
-              Manage, track, and collaborate on all your tasks.
-            </p>
+          <div className={styles.breadcrumb}>
+            <Link to="/"><MdHome size={13} /> Dashboard</Link>
+            <MdChevronRight size={14} />
+            Tasks
           </div>
         </div>
 

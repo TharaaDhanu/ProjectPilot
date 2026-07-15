@@ -13,17 +13,12 @@
 
 /* ── Page header ── */
 .pageHeader {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
   margin-bottom: 24px;
-  gap: 16px;
 }
 
 .breadcrumb {
   font-size: 0.75rem;
   color: #9ca3af;
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -37,20 +32,6 @@
 
 .breadcrumb a:hover { text-decoration: underline; }
 
-.pageTitle {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #1E1B35;
-  margin: 0;
-  letter-spacing: -0.03em;
-}
-
-.pageSubtitle {
-  font-size: 0.875rem;
-  color: #9ca3af;
-  margin: 4px 0 0;
-}
-
 /* ── Empty state ── */
 .emptyState {
   display: flex;
@@ -60,13 +41,13 @@
   padding: 60px 24px;
   background: #ffffff;
   border-radius: 20px;
-  border: 2px dashed rgba(30, 27, 53, 0.1);
+  border: 2px dashed #e5e7eb;
   text-align: center;
   gap: 12px;
 }
 
 .emptyIcon {
-  color: rgba(30, 27, 53, 0.2);
+  color: #9ca3af;
 }
 
 .emptyTitle {
@@ -85,8 +66,8 @@
   margin-top: 8px;
   padding: 10px 22px;
   border-radius: 12px;
-  background: #1E1B35;
-  color: #D9FF4F;
+  background: #6366f1;
+  color: #fff;
   border: none;
   font-weight: 700;
   font-size: 0.875rem;
@@ -95,7 +76,7 @@
   transition: background 0.2s;
 }
 
-.emptyBtn:hover { background: #2d2854; }
+.emptyBtn:hover { background: #4f46e5; }
 
 /* ── Skeleton ── */
 .skelGrid {
@@ -111,7 +92,7 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 12px;

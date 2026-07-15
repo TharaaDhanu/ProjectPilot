@@ -4,38 +4,31 @@
 
 .board {
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 12px;
-  min-height: 520px;
 }
 
-.board::-webkit-scrollbar {
-  height: 6px;
-}
-.board::-webkit-scrollbar-thumb {
-  background: rgba(30, 27, 53, 0.1);
-  border-radius: 4px;
+/* Row container */
+.row {
+  display: flex;
+  gap: 16px;
 }
 
 /* Kanban column */
 .column {
   flex: 1;
-  min-width: 250px;
-  max-width: 320px;
-  background: #f8fafc;
-  border-radius: 20px;
-  border: 1px solid rgba(30, 27, 53, 0.04);
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
   padding: 14px;
-  height: calc(100vh - 280px);
-  min-height: 480px;
-  transition: background-color 0.2s, border-color 0.2s;
+  min-height: 400px;
+  max-height: 500px;
 }
 
 .column.dragOver {
-  background-color: #f1f5f9;
+  background-color: #f9fafb;
   border-color: #6366f1;
 }
 
@@ -67,7 +60,6 @@
 .inreviewIcon   { color: #8b5cf6; }
 .blockedIcon    { color: #ef4444; }
 .completedIcon  { color: #10b981; }
-.archivedIcon   { color: #9ca3af; }
 
 .colTitle {
   font-size: 0.8125rem;
@@ -78,13 +70,13 @@
 .countBadge {
   font-size: 0.65rem;
   font-weight: 700;
-  background: #e2e8f0;
-  color: #475569;
+  background: #e5e7eb;
+  color: #4b5563;
   padding: 2px 7px;
   border-radius: 99px;
 }
 
-/* Cards container */
+/* Cards container - with internal scrolling */
 .cardsList {
   flex: 1;
   display: flex;
@@ -92,13 +84,14 @@
   gap: 12px;
   overflow-y: auto;
   padding-right: 2px;
+  min-height: 0;
 }
 
 .cardsList::-webkit-scrollbar {
   width: 4px;
 }
 .cardsList::-webkit-scrollbar-thumb {
-  background: rgba(30, 27, 53, 0.06);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
 }
 
@@ -108,10 +101,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px dashed rgba(30, 27, 53, 0.08);
+  border: 1.5px dashed #e5e7eb;
   border-radius: 12px;
   padding: 24px;
-  color: #94a3b8;
+  color: #9ca3af;
   font-size: 0.75rem;
   text-align: center;
+}
+
+/* Responsive: Stack rows on small screens */
+@media (max-width: 1100px) {
+  .row {
+    flex-wrap: wrap;
+  }
+  .column {
+    min-width: 250px;
+    flex: 1 1 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .column {
+    min-width: 200px;
+    flex: 1 1 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .column {
+    min-width: 100%;
+  }
 }

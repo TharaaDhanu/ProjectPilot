@@ -6,8 +6,8 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
-  border: 1px solid rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
   margin-bottom: 16px;
 }
 
@@ -39,7 +39,7 @@
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(30,27,53,0.05);
+  border-bottom: 1px solid #e5e7eb;
   transition: background 0.15s;
 }
 
@@ -96,12 +96,12 @@
 
 .project {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: #6b7280;
 }
 
 .due {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: #6b7280;
   display: flex;
   align-items: center;
   gap: 3px;

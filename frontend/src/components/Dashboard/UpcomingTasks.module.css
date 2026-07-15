@@ -6,8 +6,8 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
-  border: 1px solid rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
   margin-bottom: 16px;
 }
 
@@ -28,19 +28,19 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: rgba(217, 255, 79, 0.2);
+  background: rgba(99, 102, 241, 0.1);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #4a5200;
+  color: #6366f1;
   font-size: 18px;
   transition: all 0.15s;
 }
 
 .addBtn:hover {
-  background: #D9FF4F;
+  background: rgba(99, 102, 241, 0.2);
 }
 
 .item {
@@ -48,7 +48,7 @@
   align-items: center;
   gap: 12px;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(30,27,53,0.05);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .item:last-child {
@@ -79,7 +79,7 @@
 
 .due {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: #6b7280;
   margin-top: 2px;
 }
 

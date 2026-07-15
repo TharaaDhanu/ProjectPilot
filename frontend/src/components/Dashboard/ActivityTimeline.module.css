@@ -6,8 +6,8 @@
   background: #ffffff;
   border-radius: 20px;
   padding: 22px 20px;
-  box-shadow: 0 2px 12px rgba(30, 27, 53, 0.06);
-  border: 1px solid rgba(30, 27, 53, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
   margin-bottom: 16px;
 }
 
@@ -47,7 +47,7 @@
   top: 14px;
   bottom: 14px;
   width: 1px;
-  background: rgba(30,27,53,0.08);
+  background: #e5e7eb;
 }
 
 .item {
@@ -88,7 +88,7 @@
 
 .text {
   font-size: 0.8rem;
-  color: #374151;
+  color: #6b7280;
   line-height: 1.45;
 }
 
@@ -111,7 +111,7 @@
 /* ── Unread state ── */
 .unread {
   cursor: pointer;
-  background: rgba(99, 102, 241, 0.03);
+  background: rgba(99, 102, 241, 0.04);
   border-radius: 10px;
   padding: 4px 6px;
   margin: -4px -6px;
