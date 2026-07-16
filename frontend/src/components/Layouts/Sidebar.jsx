@@ -72,28 +72,11 @@ const Sidebar = () => {
       <nav className={styles.nav}>
         <div className={styles.section}>
           {!leftCollapsed && <div className={styles.sectionLabel}>Main Menu</div>}
-          {navItems.slice(0, 5).map(({ label, icon: Icon, path }) => (
+          {navItems.map(({ label, icon: Icon, path }) => (
             <NavLink
               key={path}
               to={path}
               end={path === '/'}
-              className={({ isActive }) =>
-                `${styles.navItem} ${isActive ? styles.active : ''}`
-              }
-              title={leftCollapsed ? label : undefined}
-            >
-              <span className={styles.navIcon}><Icon size={18} /></span>
-              {!leftCollapsed && <span className={styles.navLabel}>{label}</span>}
-            </NavLink>
-          ))}
-        </div>
-
-        <div className={styles.section}>
-          {!leftCollapsed && <div className={styles.sectionLabel}>Workspace</div>}
-          {navItems.slice(5).map(({ label, icon: Icon, path }) => (
-            <NavLink
-              key={path}
-              to={path}
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.active : ''}`
               }

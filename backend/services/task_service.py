@@ -88,18 +88,32 @@ class TaskService:
         db.session.add(task)
         db.session.commit()
 
-        # Update associated Project's progress
-        TaskService.update_project_progress(project_id)
+        # Serialise task NOW while the session is healthy. The side-effect
+        # operations below may leave the session in a state where lazy-loaded
+        # relationships (e.g. `project.title`, `assignee.name`) would fail.
+        # Capturing the dict up front guarantees the success response is
+        # correct even if those operations have issues.
+        task_data = task.to_dict()
 
-        # Notify assignee if task is assigned to someone else
-        if task.assigned_to and task.assigned_to != creator_id:
-            NotificationService.create_notification(
-                user_id=task.assigned_to,
-                message=f"You have been assigned a new task: '{task.title}' under project '{project.title}'.",
-                notification_type="task_assigned"
-            )
+        # --- Non-critical side effects (wrapped in try/except so they never
+        #     break the successful creation response) -----------------------
+        try:
+            TaskService.update_project_progress(project_id)
+        except Exception:
+            pass
 
-        return task
+        try:
+            if task.assigned_to and task.assigned_to != creator_id:
+                NotificationService.create_notification(
+                    user_id=task.assigned_to,
+                    title="Task Assigned",
+                    message=f"You have been assigned a new task: '{task.title}' under project '{project.title}'.",
+                    notification_type="task_assigned"
+                )
+        except Exception:
+            pass
+
+        return task_data
 
     @staticmethod
     def get_task_by_id(task_id: int) -> Optional[Task]:
@@ -184,35 +198,46 @@ class TaskService:
 
         db.session.commit()
 
-        # Update Project progress if project or progress changed
-        if task.project_id != old_project_id:
-            TaskService.update_project_progress(old_project_id)
-            TaskService.update_project_progress(task.project_id)
-        elif task.progress != old_progress:
-            TaskService.update_project_progress(task.project_id)
+        # Serialise task NOW while the session is healthy (see create_task 
+        # for the rationale regarding side-effects that may break the session).
+        task_data = task.to_dict()
 
-        # Trigger Notifications
-        project_title = task.project.title if task.project else "Unknown"
+        # --- Non-critical side effects (wrapped in try/except so they never
+        #     break the successful update response) -------------------------
+        try:
+            if task.project_id != old_project_id:
+                TaskService.update_project_progress(old_project_id)
+                TaskService.update_project_progress(task.project_id)
+            elif task.progress != old_progress:
+                TaskService.update_project_progress(task.project_id)
+        except Exception:
+            pass
 
-        # Notification: Assigned user changed
-        if task.assigned_to and task.assigned_to != old_assignee and task.assigned_to != user_id:
-            NotificationService.create_notification(
-                user_id=task.assigned_to,
-                message=f"You have been assigned to task: '{task.title}' under project '{project_title}'.",
-                notification_type="task_assigned"
-            )
+        try:
+            project_title = task.project.title if task.project else "Unknown"
 
-        # Notification: Task completed
-        if task.status == "Completed" and old_status != "Completed":
-            # Notify task creator
-            if task.created_by != user_id:
+            # Notification: Assigned user changed
+            if task.assigned_to and task.assigned_to != old_assignee and task.assigned_to != user_id:
                 NotificationService.create_notification(
-                    user_id=task.created_by,
-                    message=f"Task '{task.title}' was marked as Completed.",
-                    notification_type="task_completed"
+                    user_id=task.assigned_to,
+                    title="Task Assigned",
+                    message=f"You have been assigned to task: '{task.title}' under project '{project_title}'.",
+                    notification_type="task_assigned"
                 )
 
-        return task
+            # Notification: Task completed
+            if task.status == "Completed" and old_status != "Completed":
+                if task.created_by != user_id:
+                    NotificationService.create_notification(
+                        user_id=task.created_by,
+                        title="Task Completed",
+                        message=f"Task '{task.title}' was marked as Completed.",
+                        notification_type="task_completed"
+                    )
+        except Exception:
+            pass
+
+        return task_data
 
     @staticmethod
     def delete_task(task_id: int, user_id: int) -> None:
@@ -223,20 +248,28 @@ class TaskService:
 
         project_id = task.project_id
         task_title = task.title
+        assigned_to = task.assigned_to
 
         db.session.delete(task)
         db.session.commit()
 
-        # Update associated Project's progress
-        TaskService.update_project_progress(project_id)
+        # --- Non-critical side effects (wrapped in try/except so they never
+        #     break the successful response) ---------------------------------
+        try:
+            TaskService.update_project_progress(project_id)
+        except Exception:
+            pass
 
-        # Create notifications
-        if task.assigned_to and task.assigned_to != user_id:
-            NotificationService.create_notification(
-                user_id=task.assigned_to,
-                message=f"Task '{task_title}' assigned to you has been deleted.",
-                notification_type="task_deleted"
-            )
+        try:
+            if assigned_to and assigned_to != user_id:
+                NotificationService.create_notification(
+                    user_id=assigned_to,
+                    title="Task Deleted",
+                    message=f"Task '{task_title}' assigned to you has been deleted.",
+                    notification_type="task_deleted"
+                )
+        except Exception:
+            pass
 
     @staticmethod
     def get_statistics(user_id: int) -> Dict[str, Any]:

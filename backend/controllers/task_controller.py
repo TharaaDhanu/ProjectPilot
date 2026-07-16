@@ -90,10 +90,10 @@ def create_task() -> tuple:
     try:
         user_id = int(get_jwt_identity())
         data = request.get_json() or {}
-        task = TaskService.create_task(user_id, data)
+        task_data = TaskService.create_task(user_id, data)
         return success_response(
-            data=task.to_dict(),
-            message=f"Task '{task.title}' created successfully.",
+            data=task_data,
+            message=f"Task '{task_data.get('title', '')}' created successfully.",
             status_code=201
         )
     except TaskServiceError as e:
@@ -107,10 +107,10 @@ def update_task(task_id: int) -> tuple:
     try:
         user_id = int(get_jwt_identity())
         data = request.get_json() or {}
-        task = TaskService.update_task(task_id, user_id, data)
+        task_data = TaskService.update_task(task_id, user_id, data)
         return success_response(
-            data=task.to_dict(),
-            message=f"Task '{task.title}' updated successfully."
+            data=task_data,
+            message=f"Task '{task_data.get('title', '')}' updated successfully."
         )
     except TaskServiceError as e:
         return error_response(str(e), 400)
