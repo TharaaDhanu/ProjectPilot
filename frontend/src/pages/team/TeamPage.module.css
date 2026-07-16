@@ -57,9 +57,10 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  background: #6366f1;
+  background: #1E1B35;
+  color: #D9FF4F;
   border: none;
-  color: #fff;
+  
   padding: 9px 18px;
   border-radius: 10px;
   font-size: 13px;
@@ -157,7 +158,7 @@
 }
 
 .searchInput:focus {
-  border-color: #6366f1;
+  border-color:#1E1B35;
 }
 
 .searchInput::placeholder { color: #9ca3af; }
@@ -197,7 +198,8 @@
 .filterBtnActive {
   background: rgba(99, 102, 241, 0.1) !important;
   border-color: rgba(99, 102, 241, 0.3) !important;
-  color: #6366f1 !important;
+
+  color: #D9FF4F !important;
 }
 
 .sortSelect {
@@ -239,7 +241,8 @@
 
 .viewBtnActive {
   background: rgba(99, 102, 241, 0.15) !important;
-  color: #6366f1 !important;
+
+  color: #D9FF4F !important;
 }
 
 /* ── Filter Panel ── */
@@ -334,7 +337,8 @@
 .deptPillActive {
   background: rgba(99, 102, 241, 0.1) !important;
   border-color: rgba(99, 102, 241, 0.3) !important;
-  color: #6366f1 !important;
+
+  color: #D9FF4F !important;
 }
 
 /* ── Grid ── */

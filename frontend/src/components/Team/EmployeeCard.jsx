@@ -7,7 +7,7 @@
 
 import React, { useState } from 'react';
 import {
-  LuUser, LuBriefcase, LuPhone, LuMail,
+  LuUser, LuPhone, LuMail,
   LuFolderOpen, LuEllipsisVertical, LuPencil, LuTrash2,
   LuEye, LuCalendarDays,
 } from 'react-icons/lu';

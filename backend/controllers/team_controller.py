@@ -17,16 +17,16 @@ class TeamController:
     @staticmethod
     def list_employees():
         """GET /api/team — list, search, and filter employees."""
-        search     = request.args.get("search", "").strip() or None
-        role       = request.args.get("role", "").strip() or None
-        department = request.args.get("department", "").strip() or None
-        status     = request.args.get("status", "").strip() or None
-        sort       = request.args.get("sort", "name_asc")
+        search      = request.args.get("search", "").strip() or None
+        role        = request.args.get("role", "").strip() or None
+        designation = request.args.get("designation", "").strip() or None
+        status      = request.args.get("status", "").strip() or None
+        sort        = request.args.get("sort", "name_asc")
 
         employees = TeamService.get_all(
             search=search,
             role=role,
-            department=department,
+            designation=designation,
             status=status,
             sort=sort,
         )

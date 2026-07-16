@@ -462,7 +462,7 @@ class CalendarService:
 
     @staticmethod
     def get_statistics(user_id: int) -> dict:
-        """Calculate high-level scheduler analytics (meetings, leaves, deadlines, department breakdowns)."""
+        """Calculate high-level scheduler analytics (meetings, leaves, deadlines, designation breakdowns)."""
         all_events = CalendarService.get_all(user_id, {})
         total = len(all_events)
         
@@ -472,15 +472,15 @@ class CalendarService:
         milestones_count = sum(1 for e in all_events if e.get("event_type") == "Milestone")
         deadlines_count = sum(1 for e in all_events if e.get("event_type") == "Deadline")
 
-        # Breakdown by department (linked via employee)
-        dept_breakdown = {}
+        # Breakdown by designation (linked via employee)
+        desig_breakdown = {}
         for e in all_events:
             emp_id = e.get("employee_id")
             if emp_id:
                 emp = User.query.get(emp_id)
-                dept = emp.department if emp else None
-                if dept:
-                    dept_breakdown[dept] = dept_breakdown.get(dept, 0) + 1
+                desig = emp.designation if emp else None
+                if desig:
+                    desig_breakdown[desig] = desig_breakdown.get(desig, 0) + 1
                     
         # Calculate monthly counts
         monthly_distribution = {}
@@ -501,7 +501,7 @@ class CalendarService:
             "tasks": tasks_count,
             "milestones": milestones_count,
             "deadlines": deadlines_count,
-            "department_breakdown": dept_breakdown,
+            "designation_breakdown": desig_breakdown,
             "monthly_distribution": monthly_distribution
         }
 
@@ -587,7 +587,6 @@ class CalendarService:
                 "name": u.name,
                 "role": u.role,
                 "designation": u.designation,
-                "department": u.department,
                 "avatar": u.avatar,
                 "status": u.status,
             }

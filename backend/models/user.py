@@ -101,7 +101,6 @@ class User(db.Model):
             "email": self.email,
             "role": self.role,
             "designation": self.designation,
-            "department": self.department,
             "employee_id": self.employee_id,
             "phone": self.phone,
             "avatar": self.avatar,

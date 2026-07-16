@@ -16,11 +16,7 @@ from models.project import Project
 from models.task import Task
 from services.notification_service import NotificationService
 
-VALID_ROLES = {
-    "Super Admin", "Admin", "Project Manager", "Team Lead",
-    "Senior Developer", "Developer", "Designer", "QA Engineer",
-    "Intern", "Employee"
-}
+VALID_ROLES = {"Admin", "Manager", "Employee"}
 
 VALID_STATUSES = {"Active", "Busy", "On Leave", "Offline"}
 
@@ -35,7 +31,7 @@ VALID_SORTS = {
     "name_asc":     User.name.asc(),
     "name_desc":    User.name.desc(),
     "role":         User.role.asc(),
-    "department":   User.department.asc(),
+    "designation":  User.designation.asc(),
     "joining_date": User.joining_date.asc(),
 }
 
@@ -59,7 +55,7 @@ class TeamService:
     def get_all(
         search:     Optional[str] = None,
         role:       Optional[str] = None,
-        department: Optional[str] = None,
+        designation: Optional[str] = None,
         status:     Optional[str] = None,
         sort:       str = "name_asc",
     ) -> list:
@@ -73,15 +69,14 @@ class TeamService:
                     User.email.ilike(term),
                     User.employee_id.ilike(term),
                     User.designation.ilike(term),
-                    User.department.ilike(term),
                 )
             )
 
         if role and role in VALID_ROLES:
             query = query.filter(User.role == role)
 
-        if department and department in VALID_DEPARTMENTS:
-            query = query.filter(User.department == department)
+        if designation:
+            query = query.filter(User.designation == designation)
 
         if status and status in VALID_STATUSES:
             query = query.filter(User.status == status)
@@ -151,7 +146,6 @@ class TeamService:
             password_hash=pw_hash,
             role=role,
             designation=(data.get("designation") or "").strip() or None,
-            department=(data.get("department") or "").strip() or None,
             employee_id=employee_id,
             phone=(data.get("phone") or "").strip() or None,
             avatar=(data.get("avatar") or "").strip() or None,
@@ -222,9 +216,6 @@ class TeamService:
 
         if "designation" in data:
             user.designation = (data["designation"] or "").strip() or None
-
-        if "department" in data:
-            user.department = (data["department"] or "").strip() or None
 
         if "phone" in data:
             user.phone = (data["phone"] or "").strip() or None
@@ -317,16 +308,16 @@ class TeamService:
         for u in all_users:
             by_role[u.role] = by_role.get(u.role, 0) + 1
 
-        by_department = {}
+        by_designation = {}
         for u in all_users:
-            dept = u.department or "Unassigned"
-            by_department[dept] = by_department.get(dept, 0) + 1
+            desig = u.designation or "Unassigned"
+            by_designation[desig] = by_designation.get(desig, 0) + 1
 
         return {
             "total": total,
             "by_status": by_status,
             "by_role": by_role,
-            "by_department": by_department,
+            "by_designation": by_designation,
         }
 
     # ------------------------------------------------------------------

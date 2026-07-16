@@ -8,7 +8,7 @@
 import React from 'react';
 import {
   LuX, LuMail, LuPhone, LuBriefcase,
-  LuCalendarDays, LuFolderOpen, LuSquareCheck, LuUser,
+  LuCalendarDays, LuFolderOpen, LuSquareCheck,
   LuHash,
 } from 'react-icons/lu';
 import styles from './EmployeeDrawer.module.css';

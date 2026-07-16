@@ -218,7 +218,7 @@ class SettingsService:
         user = User.query.get(user_id)
         if not user:
             raise SettingsServiceError("User not found.", 404)
-        allowed_fields = {"name", "email", "phone", "department", "designation", "bio", "avatar"}
+        allowed_fields = {"name", "email", "phone", "designation", "bio", "avatar"}
         for key, value in data.items():
             if key in allowed_fields and hasattr(user, key):
                 setattr(user, key, value)
