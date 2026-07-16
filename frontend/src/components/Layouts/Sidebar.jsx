@@ -8,7 +8,7 @@
  * - Dynamic notification badge count via API
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   MdDashboard,
@@ -17,8 +17,6 @@ import {
   MdCalendarMonth,
   MdGroup,
   MdBarChart,
-  MdNotifications,
-  MdSettings,
   MdRocketLaunch,
   MdChevronLeft,
   MdChevronRight,
@@ -26,7 +24,6 @@ import {
 
 import { useAuth } from '../../hooks/useAuth';
 import { useSidebar } from '../../context/SidebarContext';
-import notificationService from '../../services/notificationService';
 import styles from './Sidebar.module.css';
 
 const ALL_NAV_ITEMS = [
@@ -36,8 +33,6 @@ const ALL_NAV_ITEMS = [
   { label: 'Calendar',      icon: MdCalendarMonth,   path: '/calendar' },
   { label: 'Team',          icon: MdGroup,           path: '/team' },
   { label: 'Reports',       icon: MdBarChart,        path: '/reports' },
-  { label: 'Notifications', icon: MdNotifications,   path: '/notifications', badgeKey: 'notif' },
-  { label: 'Settings',      icon: MdSettings,        path: '/settings' },
 ];
 
 // Manager can access all items except Admin-only features
@@ -50,31 +45,13 @@ const MANAGER_NAV_ITEMS = [
   { label: 'Calendar',      icon: MdCalendarMonth,   path: '/calendar' },
   { label: 'Team',          icon: MdGroup,           path: '/team' },
   { label: 'Reports',       icon: MdBarChart,        path: '/reports' },
-  { label: 'Notifications', icon: MdNotifications,   path: '/notifications', badgeKey: 'notif' },
-  { label: 'Settings',      icon: MdSettings,        path: '/settings' },
 ];
 
 const Sidebar = () => {
   const { user } = useAuth();
   const { leftCollapsed, toggleLeft } = useSidebar();
-  const [notifCount, setNotifCount] = useState(0);
-
   // Determine which nav items to show based on user role
   const navItems = user?.role === 'Admin' ? ALL_NAV_ITEMS : MANAGER_NAV_ITEMS;
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      try {
-        const data = await notificationService.getUnreadCount();
-        setNotifCount(data?.count || 0);
-      } catch {
-        // silent
-      }
-    };
-    fetchCount();
-    const interval = setInterval(fetchCount, 30000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <aside className={`${styles.sidebar} ${leftCollapsed ? styles.collapsed : ''}`}>
@@ -95,7 +72,7 @@ const Sidebar = () => {
       <nav className={styles.nav}>
         <div className={styles.section}>
           {!leftCollapsed && <div className={styles.sectionLabel}>Main Menu</div>}
-          {navItems.slice(0, 5).map(({ label, icon: Icon, path, badgeKey }) => (
+          {navItems.slice(0, 5).map(({ label, icon: Icon, path }) => (
             <NavLink
               key={path}
               to={path}
@@ -107,16 +84,13 @@ const Sidebar = () => {
             >
               <span className={styles.navIcon}><Icon size={18} /></span>
               {!leftCollapsed && <span className={styles.navLabel}>{label}</span>}
-              {badgeKey === 'notif' && notifCount > 0 && (
-                <span className={styles.badge}>{notifCount > 99 ? '99+' : notifCount}</span>
-              )}
             </NavLink>
           ))}
         </div>
 
         <div className={styles.section}>
           {!leftCollapsed && <div className={styles.sectionLabel}>Workspace</div>}
-          {navItems.slice(5).map(({ label, icon: Icon, path, badgeKey }) => (
+          {navItems.slice(5).map(({ label, icon: Icon, path }) => (
             <NavLink
               key={path}
               to={path}
@@ -127,9 +101,6 @@ const Sidebar = () => {
             >
               <span className={styles.navIcon}><Icon size={18} /></span>
               {!leftCollapsed && <span className={styles.navLabel}>{label}</span>}
-              {badgeKey === 'notif' && notifCount > 0 && (
-                <span className={styles.badge}>{notifCount > 99 ? '99+' : notifCount}</span>
-              )}
             </NavLink>
           ))}
         </div>

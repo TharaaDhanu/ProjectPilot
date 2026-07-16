@@ -6,8 +6,15 @@
   gap: 18px;
 }
 
-/* ── Page header (Breadcrumb only) ── */
+/* ── Page header ── */
 .pageHeader {
+  margin-bottom: 16px;
+}
+
+.pageHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 16px;
 }
 
@@ -26,6 +33,35 @@
 }
 
 .breadcrumb a:hover { text-decoration: underline; }
+
+/* ── Export PDF Button ── */
+.exportPdfBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1E1B35;
+  color: #D9FF4F;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.exportPdfBtn:hover { opacity: 0.92; transform: translateY(-1px); }
+.exportPdfBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Report content wrapper (for PDF capture) ── */
+.reportContent {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
 /* ── Charts Section ── */
 .chartsSection {
@@ -191,14 +227,11 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.tableHeader {
-  margin-bottom: 12px;
-}
-
 .tableTitle {
   font-size: 0.8125rem;
   font-weight: 600;
   color: #6b7280;
+  margin: 0 0 12px 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
