@@ -29,7 +29,21 @@ import { useSidebar } from '../../context/SidebarContext';
 import notificationService from '../../services/notificationService';
 import styles from './Sidebar.module.css';
 
-const navItems = [
+const ALL_NAV_ITEMS = [
+  { label: 'Dashboard',     icon: MdDashboard,      path: '/' },
+  { label: 'Projects',      icon: MdFolder,          path: '/projects' },
+  { label: 'Tasks',         icon: MdCheckBox,        path: '/tasks' },
+  { label: 'Calendar',      icon: MdCalendarMonth,   path: '/calendar' },
+  { label: 'Team',          icon: MdGroup,           path: '/team' },
+  { label: 'Reports',       icon: MdBarChart,        path: '/reports' },
+  { label: 'Notifications', icon: MdNotifications,   path: '/notifications', badgeKey: 'notif' },
+  { label: 'Settings',      icon: MdSettings,        path: '/settings' },
+];
+
+// Manager can access all items except Admin-only features
+// Admin-only features would be: User Management, System Settings, Role Management, Audit Logs
+// Currently all items in ALL_NAV_ITEMS are accessible to Manager
+const MANAGER_NAV_ITEMS = [
   { label: 'Dashboard',     icon: MdDashboard,      path: '/' },
   { label: 'Projects',      icon: MdFolder,          path: '/projects' },
   { label: 'Tasks',         icon: MdCheckBox,        path: '/tasks' },
@@ -41,9 +55,12 @@ const navItems = [
 ];
 
 const Sidebar = () => {
-  const { logout } = useAuth();
+  const { user } = useAuth();
   const { leftCollapsed, toggleLeft } = useSidebar();
   const [notifCount, setNotifCount] = useState(0);
+
+  // Determine which nav items to show based on user role
+  const navItems = user?.role === 'Admin' ? ALL_NAV_ITEMS : MANAGER_NAV_ITEMS;
 
   useEffect(() => {
     const fetchCount = async () => {

@@ -14,24 +14,29 @@ import {
 import DashboardLayout from '../../components/Layouts/DashboardLayout';
 import settingsService from '../../services/settingsService';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../hooks/useAuth';
 import styles from './SettingsPage.module.css';
 
-const TABS = [
+const ALL_TABS = [
   { id: 'general', label: 'General', icon: LuSettings },
   { id: 'profile', label: 'Profile', icon: LuUser },
   { id: 'account', label: 'Account', icon: LuUser },
   { id: 'security', label: 'Security', icon: LuShield },
   { id: 'appearance', label: 'Appearance', icon: LuPalette },
   { id: 'notifications', label: 'Notifications', icon: LuBell },
-  { id: 'roles', label: 'Roles & Permissions', icon: LuUsers },
-  { id: 'system', label: 'System', icon: LuServer },
+  { id: 'roles', label: 'Roles & Permissions', icon: LuUsers, adminOnly: true },
+  { id: 'system', label: 'System', icon: LuServer, adminOnly: true },
   { id: 'about', label: 'About', icon: LuInfo },
 ];
 
 const SettingsPage = () => {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('general');
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  // Filter tabs based on user role
+  const TABS = user?.role === 'Admin' ? ALL_TABS : ALL_TABS.filter(tab => !tab.adminOnly);
 
   // ── General ──
   const [general, setGeneral] = useState({

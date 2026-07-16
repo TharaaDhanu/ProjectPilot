@@ -62,7 +62,14 @@ def create_project() -> tuple:
     except ProjectServiceError as exc:
         return error_response(exc.message, exc.http_status)
 
-    # Auto-generate notification for project creation
+    # Serialise the project NOW while the session is still healthy.
+    # The notification step below performs its own commit and may leave the
+    # session in a state where lazy-loading relationships (e.g. `creator`)
+    # would fail. Capturing the dict up front guarantees the success
+    # response is correct even if notification creation has issues.
+    project_data = project.to_dict()
+
+    # Auto-generate notification for project creation (non-critical)
     try:
         NotificationService.create_notification(
             user_id=user_id,
@@ -76,7 +83,7 @@ def create_project() -> tuple:
         pass
 
     return success_response(
-        data=project.to_dict(),
+        data=project_data,
         message="Project created successfully.",
         status_code=201,
     )
@@ -92,7 +99,11 @@ def update_project(project_id: int) -> tuple:
     except ProjectServiceError as exc:
         return error_response(exc.message, exc.http_status)
 
-    # Auto-generate notification for project update
+    # Serialise the project NOW while the session is still healthy (see
+    # create_project for the rationale regarding the notification commit).
+    project_data = project.to_dict()
+
+    # Auto-generate notification for project update (non-critical)
     try:
         is_completed = data.get("status") == "Completed"
         notif_type = "project_completed" if is_completed else "project_updated"
@@ -108,7 +119,7 @@ def update_project(project_id: int) -> tuple:
     except Exception:
         pass
 
-    return success_response(data=project.to_dict(), message="Project updated.")
+    return success_response(data=project_data, message="Project updated.")
 
 
 def delete_project(project_id: int) -> tuple:
