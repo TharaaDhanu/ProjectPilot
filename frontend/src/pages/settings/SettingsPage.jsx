@@ -44,12 +44,11 @@ const SettingsPage = () => {
     week_start: 'monday',
   });
 
-  // ── Profile ──
+// ── Profile ──
   const [profile, setProfile] = useState({
     name: '',
     email: '',
     phone: '',
-    department: '',
     designation: '',
     bio: '',
     avatar: '',
@@ -319,10 +318,6 @@ const SettingsPage = () => {
               <div className={styles.formGroup}>
                 <label>Phone Number</label>
                 <input type="tel" value={profile.phone} onChange={e => setProfile({ ...profile, phone: e.target.value })} placeholder="Phone" />
-              </div>
-              <div className={styles.formGroup}>
-                <label>Department</label>
-                <input type="text" value={profile.department} onChange={e => setProfile({ ...profile, department: e.target.value })} placeholder="Department" />
               </div>
               <div className={styles.formGroup}>
                 <label>Designation</label>

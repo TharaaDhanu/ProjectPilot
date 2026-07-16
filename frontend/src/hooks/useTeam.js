@@ -19,7 +19,7 @@ export function useTeam() {
   // Search / filter / sort state
   const [search, setSearch]           = useState('');
   const [filterRole, setFilterRole]   = useState('');
-  const [filterDept, setFilterDept]   = useState('');
+  const [filterDesignation, setFilterDesignation] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [sort, setSort]               = useState('name_asc');
 
@@ -38,7 +38,7 @@ export function useTeam() {
       const params = {};
       if (search) params.search = search;
       if (filterRole) params.role = filterRole;
-      if (filterDept) params.department = filterDept;
+      if (filterDesignation) params.designation = filterDesignation;
       if (filterStatus) params.status = filterStatus;
       if (sort) params.sort = sort;
 
@@ -49,7 +49,7 @@ export function useTeam() {
     } finally {
       setLoading(false);
     }
-  }, [search, filterRole, filterDept, filterStatus, sort]);
+  }, [search, filterRole, filterDesignation, filterStatus, sort]);
 
   const fetchStatistics = useCallback(async () => {
     setStatsLoading(true);
@@ -138,7 +138,7 @@ export function useTeam() {
     // Search/filter/sort
     search, setSearch,
     filterRole, setFilterRole,
-    filterDept, setFilterDept,
+    filterDesignation, setFilterDesignation,
     filterStatus, setFilterStatus,
     sort, setSort,
     // Drawer

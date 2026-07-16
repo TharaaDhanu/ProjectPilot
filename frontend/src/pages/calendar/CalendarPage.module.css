@@ -83,8 +83,8 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-.viewBtn:hover { color: #1E1B35; }
-.viewBtnActive { background: #6366f1; color: #fff; }
+.viewBtn:hover { color: #D9FF4F; }
+.viewBtnActive { background: #1E1B35; color: #fff; }
 
 .toolActions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .iconBtn {
@@ -101,9 +101,10 @@
 
 .createBtn {
   display: flex; align-items: center; gap: 7px;
-  background: #6366f1;
+  background: #1E1B35;
+  color: #D9FF4F;
   border: none;
-  color: #fff;
+  
   padding: 9px 16px;
   border-radius: 10px;
   font-size: 13px;
@@ -155,8 +156,8 @@
   cursor: pointer;
   transition: all 0.15s;
 }
-.pill:hover { color: #1E1B35; }
-.pillActive { background: #6366f1; color: #fff; border-color: #6366f1; }
+.pill:hover { color: #D9FF4F; }
+.pillActive { background: #1E1B35; color: #fff; border-color: #1E1B35; }
 .resetBtn {
   margin-left: auto;
   background: transparent;
@@ -167,7 +168,7 @@
   font-size: 12px;
   cursor: pointer;
 }
-.resetBtn:hover { color: #1E1B35; }
+.resetBtn:hover { color: #D9FF4F; }
 
 /* ── Main Calendar Card ── */
 .mainCard {
@@ -220,7 +221,7 @@
   display: flex; align-items: center; justify-content: center;
 }
 .today .dayNum {
-  background: #6366f1; color: #fff; border-radius: 50%;
+  background: #1E1B35; color: #fff; border-radius: 50%;
 }
 .chipList { display: flex; flex-direction: column; gap: 3px; }
 
@@ -277,7 +278,7 @@
   display: flex; align-items: center; gap: 12px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-left: 3px solid #6366f1;
+  border-left: 3px solid #1E1B35;
   border-radius: 10px;
   padding: 12px 14px;
   cursor: pointer;
@@ -294,7 +295,7 @@
 .agendaView { display: flex; flex-direction: column; gap: 18px; }
 .agendaGroup { display: flex; flex-direction: column; gap: 6px; }
 .agendaMonth {
-  font-size: 13px; font-weight: 700; color: #6366f1;
+  font-size: 13px; font-weight: 700; color: #1E1B35;
   text-transform: uppercase; letter-spacing: 0.5px;
   padding-bottom: 6px; border-bottom: 1px solid #e5e7eb;
 }

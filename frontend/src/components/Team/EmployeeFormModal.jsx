@@ -11,16 +11,21 @@ import { getProjects } from '../../services/projectService';
 import styles from './EmployeeFormModal.module.css';
 
 const ROLES = [
-  'Super Admin', 'Admin', 'Project Manager', 'Team Lead',
-  'Senior Developer', 'Developer', 'Designer', 'QA Engineer',
-  'Intern', 'Employee',
+  'Admin', 'Manager', 'Employee',
 ];
 
 const STATUSES = ['Active', 'Busy', 'On Leave', 'Offline'];
 
-const DEPARTMENTS = [
-  'Engineering', 'Design', 'Product', 'QA', 'Marketing',
-  'Sales', 'HR', 'Finance', 'Operations', 'Management',
+const DESIGNATIONS = [
+  'Project Manager',
+  'Team Lead',
+  'Senior Developer',
+  'Developer',
+  'QA Engineer',
+  'UI/UX Designer',
+  'Designer',
+  'Business Analyst',
+  'Intern',
 ];
 
 function buildDefault(employee) {
@@ -29,7 +34,6 @@ function buildDefault(employee) {
     email:       employee?.email || '',
     role:        employee?.role || 'Employee',
     designation: employee?.designation || '',
-    department:  employee?.department || '',
     employee_id: employee?.employee_id || '',
     phone:       employee?.phone || '',
     avatar:      employee?.avatar || '',
@@ -125,39 +129,35 @@ const EmployeeFormModal = ({ employee, onClose, onSubmit }) => {
               </div>
             </div>
 
-            {/* Row 3 */}
+            {/* Row 3 - Designation only (Department removed) */}
             <div className={styles.row}>
               <div className={styles.field}>
                 <label>Designation</label>
-                <input value={form.designation} onChange={e => set('designation', e.target.value)} placeholder="e.g. Senior Engineer" />
+                <select value={form.designation} onChange={e => set('designation', e.target.value)}>
+                  <option value="">Select Designation</option>
+                  {DESIGNATIONS.map(d => <option key={d}>{d}</option>)}
+                </select>
               </div>
               <div className={styles.field}>
-                <label>Department</label>
-                <select value={form.department} onChange={e => set('department', e.target.value)}>
-                  <option value="">Select Department</option>
-                  {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
-                </select>
+                <label>Employee ID</label>
+                <input value={form.employee_id} onChange={e => set('employee_id', e.target.value)} placeholder="EMP0001 (auto if blank)" />
               </div>
             </div>
 
             {/* Row 4 */}
             <div className={styles.row}>
               <div className={styles.field}>
-                <label>Employee ID</label>
-                <input value={form.employee_id} onChange={e => set('employee_id', e.target.value)} placeholder="EMP0001 (auto if blank)" />
-              </div>
-              <div className={styles.field}>
                 <label>Phone</label>
                 <input value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+1 555 0000" />
+              </div>
+              <div className={styles.field}>
+                <label>Joining Date</label>
+                <input type="date" value={form.joining_date} onChange={e => set('joining_date', e.target.value)} />
               </div>
             </div>
 
             {/* Row 5 */}
             <div className={styles.row}>
-              <div className={styles.field}>
-                <label>Joining Date</label>
-                <input type="date" value={form.joining_date} onChange={e => set('joining_date', e.target.value)} />
-              </div>
               <div className={styles.field}>
                 <label>Avatar URL</label>
                 <input value={form.avatar} onChange={e => set('avatar', e.target.value)} placeholder="https://..." />

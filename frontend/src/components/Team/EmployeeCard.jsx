@@ -2,12 +2,12 @@
  * components/Team/EmployeeCard.jsx
  * --------------------------------
  * Grid card displaying an employee's key info with status bubble,
- * role badge, department, project tags, and action menu.
+ * role badge, designation, project tags, and action menu.
  */
 
 import React, { useState } from 'react';
 import {
-  LuUser, LuBuilding2, LuBriefcase, LuPhone, LuMail,
+  LuUser, LuBriefcase, LuPhone, LuMail,
   LuFolderOpen, LuEllipsisVertical, LuPencil, LuTrash2,
   LuEye, LuCalendarDays,
 } from 'react-icons/lu';
@@ -21,15 +21,8 @@ const STATUS_COLORS = {
 };
 
 const ROLE_COLORS = {
-  'Super Admin':       '#ef4444',
   'Admin':             '#f97316',
-  'Project Manager':   '#3b82f6',
-  'Team Lead':         '#8b5cf6',
-  'Senior Developer':  '#06b6d4',
-  'Developer':         '#10b981',
-  'Designer':          '#ec4899',
-  'QA Engineer':       '#f59e0b',
-  'Intern':            '#6b7280',
+  'Manager':           '#3b82f6',
   'Employee':          '#64748b',
 };
 
@@ -92,12 +85,6 @@ const EmployeeCard = ({ employee, onView, onEdit, onDelete }) => {
 
       {/* Info rows */}
       <div className={styles.infoRows}>
-        {employee.department && (
-          <div className={styles.infoRow}>
-            <LuBuilding2 size={12} />
-            <span>{employee.department}</span>
-          </div>
-        )}
         {employee.email && (
           <div className={styles.infoRow}>
             <LuMail size={12} />

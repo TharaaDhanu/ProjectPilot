@@ -170,7 +170,7 @@ const TeamStats = () => {
               </div>
               <div className={styles.memberInfo}>
                 <div className={styles.memberName}>{emp.name}</div>
-                <div className={styles.memberRole}>{emp.role}</div>
+                <div className={styles.memberRole}>{emp.designation || emp.role}</div>
               </div>
               <div className={styles.memberStatus} style={{
                 background: emp.status === 'Active' ? '#22c55e22' : '#f59e0b22',

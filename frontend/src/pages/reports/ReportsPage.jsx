@@ -97,8 +97,8 @@ const ReportsPage = () => {
     { name: 'Blocked',      value: taskStats.blocked      || 0 },
   ].filter(d => d.value > 0) : [];
 
-  const teamDeptData = teamStats?.by_department
-    ? Object.entries(teamStats.by_department).map(([dept, count]) => ({ name: dept, value: count }))
+  const teamDesignationData = teamStats?.by_designation
+    ? Object.entries(teamStats.by_designation).map(([desig, count]) => ({ name: desig, value: count }))
     : [];
 
   const progressData = recentProjects.slice(0, 8).map(p => ({
@@ -222,21 +222,21 @@ const ReportsPage = () => {
               ) : <p className={styles.noData}>No project data available.</p>}
             </div>
 
-            {/* Team by department */}
+            {/* Team by designation */}
             <div className={styles.chartCard}>
               <div className={styles.chartHeader}>
                 <LuUsers size={16} />
-                <h3>Team by Department</h3>
+                <h3>Team by Designation</h3>
               </div>
-              {teamDeptData.length > 0 ? (
+              {teamDesignationData.length > 0 ? (
                 <ResponsiveContainer width="100%" height={240}>
-                  <BarChart data={teamDeptData} layout="vertical" margin={{ left: 20 }}>
+                  <BarChart data={teamDesignationData} layout="vertical" margin={{ left: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
                     <XAxis type="number" tick={{ fill: '#6b7280', fontSize: 11 }} />
                     <YAxis dataKey="name" type="category" width={90} tick={{ fill: '#6b7280', fontSize: 10 }} />
                     <Tooltip content={<CustomTooltip />} />
                     <Bar dataKey="value" name="Members" radius={[0, 6, 6, 0]}>
-                      {teamDeptData.map((_, i) => (
+                      {teamDesignationData.map((_, i) => (
                         <Cell key={i} fill={COLORS[i % COLORS.length]} />
                       ))}
                     </Bar>
@@ -339,22 +339,22 @@ const ReportsPage = () => {
           {/* Team Performance Table */}
           <div className={styles.tableCard}>
             <div className={styles.tableHeader}>
-              <h3 className={styles.tableTitle}>Department Performance</h3>
+              <h3 className={styles.tableTitle}>Designation Performance</h3>
             </div>
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>Department</th>
+                  <th>Designation</th>
                   <th>Members</th>
                   <th>Active</th>
                 </tr>
               </thead>
               <tbody>
-                {teamDeptData.slice(0, 5).map((dept, i) => (
+                {teamDesignationData.slice(0, 5).map((desig, i) => (
                   <tr key={i}>
-                    <td>{dept.name}</td>
-                    <td>{dept.value}</td>
-                    <td>{Math.round(dept.value * 0.7)}</td>
+                    <td>{desig.name}</td>
+                    <td>{desig.value}</td>
+                    <td>{Math.round(desig.value * 0.7)}</td>
                   </tr>
                 ))}
               </tbody>

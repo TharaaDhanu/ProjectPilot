@@ -163,13 +163,14 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: #6366f1;
+  background: #1E1B35;
+  color: #D9FF4F;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #fff;
+
   flex-shrink: 0;
   letter-spacing: 0.03em;
 }

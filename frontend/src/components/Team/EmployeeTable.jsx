@@ -37,7 +37,7 @@ const EmployeeTable = ({ employees, onView, onEdit, onDelete }) => {
             <th>Employee</th>
             <th>ID</th>
             <th>Role</th>
-            <th>Department</th>
+            <th>Designation</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Projects</th>
@@ -66,7 +66,7 @@ const EmployeeTable = ({ employees, onView, onEdit, onDelete }) => {
                 </td>
                 <td><span className={styles.empId}>{emp.employee_id || '—'}</span></td>
                 <td><span className={styles.rolePill}>{emp.role}</span></td>
-                <td>{emp.department || '—'}</td>
+                <td>{emp.designation || '—'}</td>
                 <td className={styles.emailCell}>{emp.email}</td>
                 <td>{emp.phone || '—'}</td>
                 <td>

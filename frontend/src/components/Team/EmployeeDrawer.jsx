@@ -7,7 +7,7 @@
 
 import React from 'react';
 import {
-  LuX, LuMail, LuPhone, LuBuilding2, LuBriefcase,
+  LuX, LuMail, LuPhone, LuBriefcase,
   LuCalendarDays, LuFolderOpen, LuSquareCheck, LuUser,
   LuHash,
 } from 'react-icons/lu';
@@ -125,10 +125,10 @@ const EmployeeDrawer = ({ employee, onClose, onEdit }) => {
                 </div>
               </div>
               <div className={styles.detailItem}>
-                <LuBuilding2 size={13} className={styles.detailIcon} />
+                <LuBriefcase size={13} className={styles.detailIcon} />
                 <div>
-                  <div className={styles.detailLabel}>Department</div>
-                  <div className={styles.detailValue}>{employee.department || '—'}</div>
+                  <div className={styles.detailLabel}>Designation</div>
+                  <div className={styles.detailValue}>{employee.designation || '—'}</div>
                 </div>
               </div>
               <div className={styles.detailItem}>

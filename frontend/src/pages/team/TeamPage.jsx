@@ -25,13 +25,20 @@ import EmployeeFormModal from '../../components/Team/EmployeeFormModal';
 import styles from './TeamPage.module.css';
 
 const ROLES = [
-  'All Roles', 'Super Admin', 'Admin', 'Project Manager', 'Team Lead',
-  'Senior Developer', 'Developer', 'Designer', 'QA Engineer', 'Intern', 'Employee',
+  'All Roles', 'Admin', 'Manager', 'Employee',
 ];
 
-const DEPARTMENTS = [
-  'All Departments', 'Engineering', 'Design', 'Product', 'QA',
-  'Marketing', 'Sales', 'HR', 'Finance', 'Operations', 'Management',
+const DESIGNATIONS = [
+  'All Designations',
+  'Project Manager',
+  'Team Lead',
+  'Senior Developer',
+  'Developer',
+  'QA Engineer',
+  'UI/UX Designer',
+  'Designer',
+  'Business Analyst',
+  'Intern',
 ];
 
 const STATUSES = ['All Statuses', 'Active', 'Busy', 'On Leave', 'Offline'];
@@ -42,7 +49,7 @@ const SORTS = [
   { value: 'newest', label: 'Newest' },
   { value: 'oldest', label: 'Oldest' },
   { value: 'role', label: 'Role' },
-  { value: 'department', label: 'Department' },
+  { value: 'designation', label: 'Designation' },
   { value: 'joining_date', label: 'Joining Date' },
 ];
 
@@ -75,7 +82,7 @@ const TeamPage = () => {
     employees, statistics, loading, error,
     search, setSearch,
     filterRole, setFilterRole,
-    filterDept, setFilterDept,
+    filterDesignation, setFilterDesignation,
     filterStatus, setFilterStatus,
     sort, setSort,
     selectedEmployee, openDrawer, closeDrawer,
@@ -183,9 +190,9 @@ const TeamPage = () => {
               </select>
             </div>
             <div className={styles.filterGroup}>
-              <label>Department</label>
-              <select value={filterDept} onChange={e => setFilterDept(e.target.value === 'All Departments' ? '' : e.target.value)}>
-                {DEPARTMENTS.map(d => <option key={d}>{d}</option>)}
+              <label>Designation</label>
+              <select value={filterDesignation} onChange={e => setFilterDesignation(e.target.value === 'All Designations' ? '' : e.target.value)}>
+                {DESIGNATIONS.map(d => <option key={d}>{d}</option>)}
               </select>
             </div>
             <div className={styles.filterGroup}>
@@ -198,23 +205,23 @@ const TeamPage = () => {
             </div>
             <button
               className={styles.clearFilters}
-              onClick={() => { setFilterRole(''); setFilterDept(''); setFilterStatus(''); }}
+              onClick={() => { setFilterRole(''); setFilterDesignation(''); setFilterStatus(''); }}
             >
               Clear
             </button>
           </div>
         )}
 
-        {/* ── Department breakdown pills ── */}
-        {stats.by_department && (
+        {/* ── Designation breakdown pills ── */}
+        {stats.by_designation && (
           <div className={styles.deptRow}>
-            {Object.entries(stats.by_department).map(([dept, count]) => (
+            {Object.entries(stats.by_designation).map(([desig, count]) => (
               <button
-                key={dept}
-                className={`${styles.deptPill} ${filterDept === dept ? styles.deptPillActive : ''}`}
-                onClick={() => setFilterDept(filterDept === dept ? '' : dept)}
+                key={desig}
+                className={`${styles.deptPill} ${filterDesignation === desig ? styles.deptPillActive : ''}`}
+                onClick={() => setFilterDesignation(filterDesignation === desig ? '' : desig)}
               >
-                {dept} <span>{count}</span>
+                {desig} <span>{count}</span>
               </button>
             ))}
           </div>
